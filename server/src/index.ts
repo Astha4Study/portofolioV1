@@ -17,6 +17,15 @@ export const app = new Hono()
 	};
 
 	return c.json(data, { status: 200 });
+})
+
+.get("/test", async (c) => {
+	const data: ApiResponse = {
+		message: "This is a test route!",
+		success: true,
+	};
+
+	return c.json(data, { status: 200 });
 });
 
 export default app;

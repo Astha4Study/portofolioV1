@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -110,11 +111,18 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@theme {
+  --color-primary-dark: #0F172A;
+  --color-secondary-dark: #334155;
+  --color-border-dark: #E2E8F0 ;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: 'Manrope', sans-serif;
     @apply bg-background text-foreground;
   }
 }

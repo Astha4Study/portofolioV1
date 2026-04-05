@@ -6,10 +6,9 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
-    "allowJs": true,
+    "allowJs": false,
 
     // Path resolution
-    "baseUrl": "./",
     "paths": {
       "@server/*": ["./server/src/*"],
       "@client/*": ["./client/src/*"],
@@ -31,10 +30,17 @@
 
     // Output control
     "skipLibCheck": true,
+    "noEmit": true,
 
     // Optional strict flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-  }
+  },
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/.turbo",
+    "**/coverage"
+  ]
 }

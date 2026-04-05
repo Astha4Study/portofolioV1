@@ -15,13 +15,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "bun --watch run src/index.ts & tsc --watch"
+    "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\""
   },
   "dependencies": {
     "hono": "^4.10.8",
     "shared": "workspace:*"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "concurrently": "^9.2.1"
   }
 }
