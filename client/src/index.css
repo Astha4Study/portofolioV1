@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -112,9 +112,9 @@
 }
 
 @theme {
-  --color-primary-dark: #0F172A;
+  --color-primary-dark: #0f172a;
   --color-secondary-dark: #334155;
-  --color-border-dark: #E2E8F0 ;
+  --color-border-dark: #e2e8f0;
 }
 
 @layer base {
@@ -122,7 +122,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     @apply bg-background text-foreground;
   }
 }
