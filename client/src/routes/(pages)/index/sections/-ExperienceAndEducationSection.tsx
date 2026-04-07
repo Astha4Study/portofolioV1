@@ -254,7 +254,7 @@ export default function ExperienceAndEducationSection() {
               <p className="font-medium text-neutral-900">
                 Universitas Amikom Purwokerto
               </p>
-              <p className="text-sm text-neutral-500">2023 — Present</p>
+              <p className="text-sm text-neutral-500">Aug 2023 — Present</p>
             </div>
 
             <p className="text-sm text-neutral-700">Informatics Student</p>
@@ -271,7 +271,7 @@ export default function ExperienceAndEducationSection() {
       <div className="flex flex-col gap-4">
         <p className="font-semibold text-lg text-neutral-900">Skills</p>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {skills.map((skill) => (
             <Badge
               key={skill.name}

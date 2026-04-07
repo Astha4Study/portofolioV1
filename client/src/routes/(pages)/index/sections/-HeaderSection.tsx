@@ -1,10 +1,17 @@
 import Stack from "@/components/Stack";
 
+import profileImage1 from "@/assets/images/profile-image1.jpeg"
+import profileImage2 from "@/assets/images/profile-image2.jpeg"
+import profileImage3 from "@/assets/images/profile-image3.jpeg"
+import profileImage4 from "@/assets/images/profile-image4.jpeg"
+import profileImage5 from "@/assets/images/profile-image5.jpeg"
+
 const images = [
-  "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=500&auto=format",
-  "https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=500&auto=format",
-  "https://images.unsplash.com/photo-1452626212852-811d58933cae?q=80&w=500&auto=format",
-  "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=500&auto=format",
+  profileImage1,
+  profileImage2,
+  profileImage3,
+  profileImage4,
+  profileImage5
 ];
 
 export default function HeaderSection() {
@@ -21,7 +28,7 @@ export default function HeaderSection() {
           interfaces powered by coffee and driven by thoughtful{" "}
           <span className="relative">
             desig
-            <span className="inline-block rotate-45 absolute -right-5 top-1">
+            <span className="inline-block rotate-45 absolute -right-5 top-3">
               n.
             </span>
           </span>
