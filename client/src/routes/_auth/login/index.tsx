@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { hcWithType } from "server/client";
 
-export const Route = createFileRoute("/(auth)/login/")({
+export const Route = createFileRoute("/_auth/login/")({
   component: LoginPage,
 });
 

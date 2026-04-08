@@ -27,6 +27,8 @@ export default function Projects() {
         "Framer Motion",
         "Zustand",
       ],
+      websiteUrl: "https://cetha.kurawal.space/",
+      sourceUrl: "https://github.com/gilangdely/cetha.kurawal",
     },
     {
       imageUrl: daunesiaWebsite,
@@ -46,6 +48,8 @@ export default function Projects() {
         "Framer Motion",
         "Zustand",
       ],
+      websiteUrl: "https://daunesia.vercel.app/",
+      sourceUrl: "https://github.com/GwFirman/Daunesia",
     },
     {
       imageUrl: kinaraWebsite,
@@ -54,6 +58,7 @@ export default function Projects() {
       description:
         "A web-based platform providing comprehensive information on Indonesia’s flora and fauna, enhanced with AI-driven insights and interactive exploration features.",
       tags: ["Laravel", "MySQL", "React", "Tailwind CSS", "Shadcn UI"],
+      sourceUrl: "https://github.com/Astha4Study/kinara",
     },
     {
       imageUrl: kurawalWebsite,
@@ -71,6 +76,8 @@ export default function Projects() {
         "Vite",
         "Framer Motion",
       ],
+      websiteUrl: "https://kurawal.site/",
+      sourceUrl: "https://github.com/ozan-fn/kurawal",
     },
     {
       imageUrl: arunikaWebsite,
@@ -89,6 +96,8 @@ export default function Projects() {
         "Framer Motion",
         "Zustand",
       ],
+      websiteUrl: "https://airunika.vercel.app/",
+      sourceUrl: "https://github.com/GwFirman/arunika",
     },
     {
       imageUrl: aitherwayWebsite,
@@ -107,6 +116,8 @@ export default function Projects() {
         "Framer Motion",
         "Zustand",
       ],
+      websiteUrl: "https://aither-way.vercel.app/",
+      sourceUrl: "https://github.com/GwFirman/AitherWay",
     },
     {
       imageUrl: rotaneraWebsite,
@@ -126,6 +137,8 @@ export default function Projects() {
         "Framer Motion",
         "Zustand",
       ],
+      websiteUrl: "https://rotanera.vercel.app/",
+      sourceUrl: "https://github.com/kurawal-creative/rotanera",
     },
   ];
 
@@ -140,6 +153,8 @@ export default function Projects() {
             year={project.year}
             description={project.description}
             tags={project.tags}
+            websiteUrl={project.websiteUrl}
+            sourceUrl={project.sourceUrl}
           />
         ))}
       </div>

@@ -1,3 +1,5 @@
+import Sertifications from "../../Sertifications";
+
 export default function SertificateSection() {
   return (
     <section className="w-full flex flex-col items-center gap-4">
@@ -19,6 +21,7 @@ export default function SertificateSection() {
           clean, maintainable code.
         </p>
       </div>
+      <Sertifications />
     </section>
   );
 }

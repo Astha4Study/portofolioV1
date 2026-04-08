@@ -32,6 +32,8 @@ const tagStyles: Record<string, string> = {
   "Framer Motion": "bg-pink-100 text-pink-700 border-pink-200",
   Zustand: "bg-orange-100 text-orange-700 border-orange-200",
   Cloudinary: "bg-blue-100 text-blue-700 border-blue-200",
+  Prisma: "bg-green-100 text-green-800 border-green-200",
+  PostgreSQL: "bg-blue-100 text-blue-800 border-blue-200",
 };
 
 type ProjectCardProps = {

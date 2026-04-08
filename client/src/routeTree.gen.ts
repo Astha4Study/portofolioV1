@@ -9,86 +9,133 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as pagesIndexRouteImport } from './routes/(pages)/index'
-import { Route as authSignUpIndexRouteImport } from './routes/(auth)/sign-up/index'
-import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppInsightsRouteImport } from './routes/_app/insights'
+import { Route as AuthSignUpIndexRouteImport } from './routes/_auth/sign-up/index'
+import { Route as AuthLoginIndexRouteImport } from './routes/_auth/login/index'
 
-const pagesIndexRoute = pagesIndexRouteImport.update({
-  id: '/(pages)/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authSignUpIndexRoute = authSignUpIndexRouteImport.update({
-  id: '/(auth)/sign-up/',
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInsightsRoute = AppInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AppRoute,
+} as any)
+const AuthSignUpIndexRoute = AuthSignUpIndexRouteImport.update({
+  id: '/_auth/sign-up/',
   path: '/sign-up/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authLoginIndexRoute = authLoginIndexRouteImport.update({
-  id: '/(auth)/login/',
+const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
+  id: '/_auth/login/',
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof pagesIndexRoute
-  '/login/': typeof authLoginIndexRoute
-  '/sign-up/': typeof authSignUpIndexRoute
+  '/': typeof AppIndexRoute
+  '/insights': typeof AppInsightsRoute
+  '/login/': typeof AuthLoginIndexRoute
+  '/sign-up/': typeof AuthSignUpIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof pagesIndexRoute
-  '/login': typeof authLoginIndexRoute
-  '/sign-up': typeof authSignUpIndexRoute
+  '/insights': typeof AppInsightsRoute
+  '/': typeof AppIndexRoute
+  '/login': typeof AuthLoginIndexRoute
+  '/sign-up': typeof AuthSignUpIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/(pages)/': typeof pagesIndexRoute
-  '/(auth)/login/': typeof authLoginIndexRoute
-  '/(auth)/sign-up/': typeof authSignUpIndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/insights': typeof AppInsightsRoute
+  '/_app/': typeof AppIndexRoute
+  '/_auth/login/': typeof AuthLoginIndexRoute
+  '/_auth/sign-up/': typeof AuthSignUpIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login/' | '/sign-up/'
+  fullPaths: '/' | '/insights' | '/login/' | '/sign-up/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/sign-up'
-  id: '__root__' | '/(pages)/' | '/(auth)/login/' | '/(auth)/sign-up/'
+  to: '/insights' | '/' | '/login' | '/sign-up'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_app/insights'
+    | '/_app/'
+    | '/_auth/login/'
+    | '/_auth/sign-up/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  pagesIndexRoute: typeof pagesIndexRoute
-  authLoginIndexRoute: typeof authLoginIndexRoute
-  authSignUpIndexRoute: typeof authSignUpIndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
+  AuthSignUpIndexRoute: typeof AuthSignUpIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(pages)/': {
-      id: '/(pages)/'
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof pagesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/(auth)/sign-up/': {
-      id: '/(auth)/sign-up/'
+    '/_app/insights': {
+      id: '/_app/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof AppInsightsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_auth/sign-up/': {
+      id: '/_auth/sign-up/'
       path: '/sign-up'
       fullPath: '/sign-up/'
-      preLoaderRoute: typeof authSignUpIndexRouteImport
+      preLoaderRoute: typeof AuthSignUpIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(auth)/login/': {
-      id: '/(auth)/login/'
+    '/_auth/login/': {
+      id: '/_auth/login/'
       path: '/login'
       fullPath: '/login/'
-      preLoaderRoute: typeof authLoginIndexRouteImport
+      preLoaderRoute: typeof AuthLoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface AppRouteChildren {
+  AppInsightsRoute: typeof AppInsightsRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppInsightsRoute: AppInsightsRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  pagesIndexRoute: pagesIndexRoute,
-  authLoginIndexRoute: authLoginIndexRoute,
-  authSignUpIndexRoute: authSignUpIndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
+  AuthSignUpIndexRoute: AuthSignUpIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
