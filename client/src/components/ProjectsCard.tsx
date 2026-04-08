@@ -56,7 +56,7 @@ export function ProjectCard({
   isPrivate = false,
 }: ProjectCardProps) {
   return (
-    <div className="group border border-neutral-200 rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-lg transition-shadow duration-300">
+    <div className="group h-full flex flex-col border border-neutral-200 rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-lg transition-shadow duration-300">
       {/* IMAGE */}
       <div className="h-40 w-full bg-linear-to-br from-neutral-100 to-neutral-200 flex items-center justify-center overflow-hidden">
         <img
@@ -68,7 +68,7 @@ export function ProjectCard({
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 space-y-3">
+      <div className="p-4 flex flex-col flex-1 gap-3">
         {/* Title + Year */}
         <div>
           <h3 className="text-base font-semibold text-neutral-900 mb-1">
@@ -98,7 +98,7 @@ export function ProjectCard({
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-2 pt-1">
+        <div className="mt-auto flex gap-2 pt-1">
           {websiteUrl ? (
             <a
               href={websiteUrl}
