@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "hono": "^4.10.8",
+    "jsonwebtoken": "^9.0.3",
     "shared": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/jsonwebtoken": "^9.0.10",
     "concurrently": "^9.2.1"
   }
 }

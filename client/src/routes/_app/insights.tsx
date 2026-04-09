@@ -1,3 +1,4 @@
+import HeaderInsightsSection from "@/components/landing/insights/HeaderInsightsSection";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/insights")({
@@ -5,5 +6,9 @@ export const Route = createFileRoute("/_app/insights")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/_app/insights"!</div>;
+  return (
+    <div className="space-y-12">
+      <HeaderInsightsSection />
+    </div>
+  );
 }
