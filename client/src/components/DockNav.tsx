@@ -55,13 +55,13 @@ const dockItems: DockItem[] = [
   { label: "Insights", href: "/insights", icon: Activity },
   {
     label: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/Astha4Study",
     icon: Icons.github,
     external: true,
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/muhammad-agus-priyanto-991a34371/",
     icon: Icons.linkedin,
     external: true,
   },

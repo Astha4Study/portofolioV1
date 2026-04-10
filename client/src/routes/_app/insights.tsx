@@ -1,4 +1,5 @@
-import HeaderInsightsSection from "@/components/landing/insights/HeaderInsightsSection";
+import GithubInsights from "@/components/features/insights/GithubInsights";
+import WakaTimeInsights from "@/components/features/insights/WakaTimeInsights";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/insights")({
@@ -8,7 +9,8 @@ export const Route = createFileRoute("/_app/insights")({
 function RouteComponent() {
   return (
     <div className="space-y-12">
-      <HeaderInsightsSection />
+      <GithubInsights />
+      <WakaTimeInsights />
     </div>
   );
 }

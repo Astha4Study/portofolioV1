@@ -5,6 +5,7 @@ import { getInstallationToken } from "./lib/token";
 import { getContributions } from "./lib/contributions";
 import { getProfile } from "./lib/profile";
 import { getPinnedRepositories } from "./lib/repository";
+import { getWakaTimeStats } from "./lib/wakatime";
 
 export const app = new Hono();
 
@@ -85,7 +86,7 @@ app.get("/auth/github/callback", async (c) => {
   const data = await res.json();
 
   return c.json(data);
-})
+});
 
 app.get("/github/contributions", async (c) => {
   try {
@@ -93,8 +94,8 @@ app.get("/github/contributions", async (c) => {
 
     const res = await getContributions(token);
 
-    const weeks =
-      (res as any).data.viewer.contributionsCollection.contributionCalendar.weeks;
+    const weeks = (res as any).data.viewer.contributionsCollection
+      .contributionCalendar.weeks;
 
     const days = weeks.flatMap((week: any) => week.contributionDays);
 
@@ -111,7 +112,7 @@ app.get("/github/contributions", async (c) => {
         success: false,
         message: "Failed to fetch contributions",
       },
-      500
+      500,
     );
   }
 });
@@ -126,7 +127,7 @@ app.get("/github/profile", async (c) => {
           success: false,
           message: "GITHUB_USER_TOKEN is not set",
         },
-        500
+        500,
       );
     }
 
@@ -139,7 +140,7 @@ app.get("/github/profile", async (c) => {
         success: false,
         message: (error as Error).message,
       },
-      500
+      500,
     );
   }
 });
@@ -154,7 +155,7 @@ app.get("/github/pinned-repos", async (c) => {
           success: false,
           message: "GITHUB_USER_TOKEN is not set",
         },
-        500
+        500,
       );
     }
 
@@ -167,8 +168,18 @@ app.get("/github/pinned-repos", async (c) => {
         success: false,
         message: (error as Error).message,
       },
-      500
+      500,
     );
+  }
+});
+
+app.get("/wakatime/stats", async (c) => {
+  try {
+    const data = await getWakaTimeStats(process.env.WAKATIME_API_KEY!);
+
+    return c.json(data);
+  } catch (err: any) {
+    return c.json({ error: err.message }, 500);
   }
 });
 

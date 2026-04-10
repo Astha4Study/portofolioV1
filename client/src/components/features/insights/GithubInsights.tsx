@@ -10,7 +10,7 @@ export type GitHubProfile = {
   bio?: string | null;
 };
 
-export default function HeaderInsightsSection() {
+export default function GithubInsights() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ export default function HeaderInsightsSection() {
       <div className="flex flex-col gap-5 border-b border-neutral-200 pb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-3">
           <Badge variant="outline" className="border-neutral-300 text-neutral-600">
-            GitHub Profile
+            GitHub
           </Badge>
 
           <div className="space-y-1">
