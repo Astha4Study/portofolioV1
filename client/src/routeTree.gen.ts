@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppMessageMeRouteImport } from './routes/_app/message-me'
 import { Route as AppInsightsRouteImport } from './routes/_app/insights'
 import { Route as AuthSignUpIndexRouteImport } from './routes/_auth/sign-up/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/_auth/login/index'
@@ -22,6 +23,11 @@ const AppRoute = AppRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMessageMeRoute = AppMessageMeRouteImport.update({
+  id: '/message-me',
+  path: '/message-me',
   getParentRoute: () => AppRoute,
 } as any)
 const AppInsightsRoute = AppInsightsRouteImport.update({
@@ -43,11 +49,13 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/insights': typeof AppInsightsRoute
+  '/message-me': typeof AppMessageMeRoute
   '/login/': typeof AuthLoginIndexRoute
   '/sign-up/': typeof AuthSignUpIndexRoute
 }
 export interface FileRoutesByTo {
   '/insights': typeof AppInsightsRoute
+  '/message-me': typeof AppMessageMeRoute
   '/': typeof AppIndexRoute
   '/login': typeof AuthLoginIndexRoute
   '/sign-up': typeof AuthSignUpIndexRoute
@@ -56,19 +64,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/_app/insights': typeof AppInsightsRoute
+  '/_app/message-me': typeof AppMessageMeRoute
   '/_app/': typeof AppIndexRoute
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_auth/sign-up/': typeof AuthSignUpIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/insights' | '/login/' | '/sign-up/'
+  fullPaths: '/' | '/insights' | '/message-me' | '/login/' | '/sign-up/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/insights' | '/' | '/login' | '/sign-up'
+  to: '/insights' | '/message-me' | '/' | '/login' | '/sign-up'
   id:
     | '__root__'
     | '/_app'
     | '/_app/insights'
+    | '/_app/message-me'
     | '/_app/'
     | '/_auth/login/'
     | '/_auth/sign-up/'
@@ -94,6 +104,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/message-me': {
+      id: '/_app/message-me'
+      path: '/message-me'
+      fullPath: '/message-me'
+      preLoaderRoute: typeof AppMessageMeRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/insights': {
@@ -122,11 +139,13 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppInsightsRoute: typeof AppInsightsRoute
+  AppMessageMeRoute: typeof AppMessageMeRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppInsightsRoute: AppInsightsRoute,
+  AppMessageMeRoute: AppMessageMeRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

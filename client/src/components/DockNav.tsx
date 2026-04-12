@@ -10,7 +10,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { Link } from "@tanstack/react-router";
 
 export type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -86,8 +85,8 @@ export default function DockNav() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   {item.external ? (
-                    <Link
-                      to={item.href}
+                    <a
+                      href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
@@ -97,10 +96,10 @@ export default function DockNav() {
                       )}
                     >
                       <item.icon className="size-4" />
-                    </Link>
+                    </a>
                   ) : (
-                    <Link
-                      to={item.href}
+                    <a
+                      href={item.href}
                       aria-label={item.label}
                       className={cn(
                         buttonVariants({ variant: "ghost", size: "icon" }),
@@ -108,7 +107,7 @@ export default function DockNav() {
                       )}
                     >
                       <item.icon className="size-4" />
-                    </Link>
+                    </a>
                   )}
                 </TooltipTrigger>
                 <TooltipContent>

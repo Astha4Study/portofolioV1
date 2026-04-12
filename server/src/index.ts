@@ -6,6 +6,8 @@ import { getContributions } from "./lib/contributions";
 import { getProfile } from "./lib/profile";
 import { getPinnedRepositories } from "./lib/repository";
 import { getWakaTimeStats } from "./lib/wakatime";
+import { getRecentlyPlayed } from "./lib/spotifyRecentPlayed";
+import { getTopTracks } from "./lib/spotifyTopTracks";
 
 export const app = new Hono();
 
@@ -180,6 +182,51 @@ app.get("/wakatime/stats", async (c) => {
     return c.json(data);
   } catch (err: any) {
     return c.json({ error: err.message }, 500);
+  }
+})
+
+app.get("/spotify", async (c) => {
+  try {
+    const recent = await getRecentlyPlayed();
+
+    return c.json({ type: "recent", data: recent });
+  } catch (error) {
+    const message = (error as Error).message;
+    const isPremiumRestriction = (value: string) =>
+      value.includes("Active premium subscription required");
+
+    if (isPremiumRestriction(message)) {
+      try {
+        const topTracks = await getTopTracks();
+
+        return c.json({
+          type: "top",
+          data: topTracks,
+          note: "Fallback to top tracks because player endpoints currently require Premium.",
+        });
+      } catch (fallbackError) {
+        return c.json(
+          {
+            success: false,
+            type: "spotify-unavailable",
+            message: isPremiumRestriction((fallbackError as Error).message)
+              ? "Spotify API is currently restricting this account's endpoints. Please try again tomorrow."
+              : `Spotify fallback failed: ${(fallbackError as Error).message}`,
+            hint: "Regenerate Spotify refresh token with scope user-top-read",
+          },
+          503,
+        );
+      }
+    }
+
+    return c.json(
+      {
+        success: false,
+        message,
+        hint: "Ensure refresh token has scope user-read-recently-played",
+      },
+      502,
+    );
   }
 });
 
