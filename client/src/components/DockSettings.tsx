@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Languages, Settings, SunMoon } from "lucide-react";
+import { Languages, Settings } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 
 export default function DockSettings() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function DockSettings() {
                 "size-10 rounded-full",
               )}
             >
-              <SunMoon className="size-4" />
+              <AnimatedThemeToggler />
             </button>
             <button
               type="button"
