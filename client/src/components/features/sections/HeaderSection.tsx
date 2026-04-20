@@ -19,16 +19,16 @@ export default function HeaderSection() {
     <section className="w-full flex justify-between items-center">
       {/* LEFT CONTENT */}
       <div className="flex flex-1 flex-col gap-3">
-        <h1 className="text-3xl sm:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-950">
+        <h1 className="text-3xl sm:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white transition-colors duration-200">
           Hi, I'm Yann 👋
         </h1>
 
-        <p className="md:text-xl font-normal max-w-md leading-normal text-neutral-700">
+        <p className="md:text-xl font-normal max-w-md leading-normal text-neutral-700 dark:text-neutral-300 transition-colors duration-200">
           Frontend Developer who enjoys designing and building clean, responsive
           interfaces powered by coffee and driven by thoughtful{" "}
           <span className="relative">
             desig
-            <span className="inline-block rotate-45 absolute -right-5 top-3">
+            <span className="inline-block rotate-45 absolute -right-5 top-3 dark:text-neutral-300">
               n.
             </span>
           </span>
@@ -46,10 +46,14 @@ export default function HeaderSection() {
               src={src}
               alt={`card-${i + 1}`}
               draggable="false"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
             />
           ))}
-          autoplay={false}
+          autoplay={true}
           pauseOnHover={false}
         />
       </div>

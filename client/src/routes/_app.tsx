@@ -1,6 +1,7 @@
 import DockMessage from "@/components/DockMessage";
 import DockNav from "@/components/DockNav";
 import DockSettings from "@/components/DockSettings";
+import {ThemeProvider} from "@/components/ThemeProvider"
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
@@ -9,8 +10,8 @@ export const Route = createFileRoute("/_app")({
 
 function RouteComponent() {
   return (
-    <>
-      <div className="max-w-2xl w-full mx-auto py-10 pb-28 sm:py-24 sm:pb-32 backdrop-blur-lg bg-white">
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <div className="max-w-2xl w-full mx-auto py-10 pb-28 sm:py-24 sm:pb-32 backdrop-blur-lg">
         <Outlet />
       </div>
       <div className="flex items-center">
@@ -18,6 +19,6 @@ function RouteComponent() {
         <DockNav />
         <DockMessage />
       </div>
-    </>
+    </ThemeProvider>
   );
 }

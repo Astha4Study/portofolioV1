@@ -112,14 +112,14 @@ export default function StatisticWakatime({ stats }: StatisticWakatimeProps) {
       </div>
 
       <div className="space-y-3">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-          <h3 className="text-sm font-medium text-neutral-500">
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 shadow-sm transition-colors duration-200">
+          <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 transition-colors duration-200">
             Top Languages
           </h3>
 
           <div className="mt-4 space-y-3">
             {topLanguages.length === 0 ? (
-              <p className="text-sm text-neutral-500">
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200">
                 No language data available yet.
               </p>
             ) : null}
@@ -134,17 +134,17 @@ export default function StatisticWakatime({ stats }: StatisticWakatimeProps) {
               return (
                 <div key={language.name} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
-                    <p className="font-medium text-neutral-800">
+                    <p className="font-medium text-neutral-800 dark:text-neutral-200 transition-colors duration-200">
                       {language.name}
                     </p>
-                    <p className="font-semibold text-neutral-800">
+                    <p className="font-semibold text-neutral-800 dark:text-neutral-200 transition-colors duration-200">
                       {percentage}%
                     </p>
                   </div>
 
-                  <div className="h-2 rounded-full bg-neutral-100">
+                  <div className="h-2 rounded-full bg-neutral-100 dark:bg-neutral-800 transition-colors duration-200">
                     <div
-                      className="h-2 rounded-full"
+                      className="h-2 rounded-full transition-all duration-300"
                       style={{
                         width: `${percentage}%`,
                         backgroundColor: languageColor,
