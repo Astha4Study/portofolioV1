@@ -1,10 +1,16 @@
 type SpotifyTokenResponse = {
   access_token?: string;
+  expires_in?: number;
+  token_type?: string;
   error?: string;
   error_description?: string;
 };
 
-function getEnv(name: "SPOTIFY_CLIENT_ID" | "SPOTIFY_CLIENT_SECRET" | "SPOTIFY_REFRESH_TOKEN") {
+let cachedToken: { token: string; expiresAt: number } | null = null;
+
+function getEnv(
+  name: "SPOTIFY_CLIENT_ID" | "SPOTIFY_CLIENT_SECRET" | "SPOTIFY_REFRESH_TOKEN",
+) {
   const value = process.env[name];
 
   if (!value) {
@@ -15,6 +21,13 @@ function getEnv(name: "SPOTIFY_CLIENT_ID" | "SPOTIFY_CLIENT_SECRET" | "SPOTIFY_R
 }
 
 export async function getAccessToken() {
+  const now = Date.now();
+
+  // buffer 30 detik sebelum expired
+  if (cachedToken && now < cachedToken.expiresAt - 30_000) {
+    return cachedToken.token;
+  }
+
   const clientId = getEnv("SPOTIFY_CLIENT_ID");
   const clientSecret = getEnv("SPOTIFY_CLIENT_SECRET");
   const refreshToken = getEnv("SPOTIFY_REFRESH_TOKEN");
@@ -52,6 +65,12 @@ export async function getAccessToken() {
   if (!data.access_token) {
     throw new Error("Spotify token response does not contain access_token");
   }
+
+  const expiresInSec = data.expires_in ?? 3600;
+  cachedToken = {
+    token: data.access_token,
+    expiresAt: Date.now() + expiresInSec * 1000,
+  };
 
   return data.access_token;
 }

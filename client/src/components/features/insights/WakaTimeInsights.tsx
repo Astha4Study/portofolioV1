@@ -1,3 +1,4 @@
+import LoadingWakatimeInsights from "@/components/LoadingWakaTimeInsights";
 import StatisticWakatime from "@/components/StatisticWakatime";
 import { Badge } from "@/components/ui/badge";
 import { fetchWakaTimeStats } from "@/lib/wakatime";
@@ -11,24 +12,7 @@ export default function WakaTimeInsights() {
   });
 
   if (isLoading) {
-    return (
-      <section className="w-full space-y-6 border-t border-neutral-200 dark:border-neutral-800 pt-6 transition-colors duration-200">
-        <div className="space-y-3">
-          <div className="h-5 w-28 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-800" />
-          <div className="h-9 w-56 animate-pulse rounded-md bg-neutral-300 dark:bg-neutral-700" />
-          <div className="h-4 w-80 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800" />
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div
-              key={index}
-              className="h-34 animate-pulse rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800 transition-colors duration-200"
-            />
-          ))}
-        </div>
-      </section>
-    );
+    return <LoadingWakatimeInsights />;
   }
 
   if (error || !data) {

@@ -1,8 +1,8 @@
 import { getAccessToken } from "./spotifyAccessToken";
 
-
 type SpotifyRecentlyPlayedResponse = {
-  items: {
+  items?: {
+    played_at: string;
     track: {
       name: string;
       artists: { name: string }[];
@@ -16,16 +16,30 @@ type SpotifyRecentlyPlayedResponse = {
   }[];
 };
 
-export async function getRecentlyPlayed() {
+function parseErrorMessage(text: string): string {
+  if (!text) return "Unknown error";
+
+  try {
+    const parsed = JSON.parse(text) as {
+      error?: { message?: string };
+      message?: string;
+    };
+    return parsed.error?.message ?? parsed.message ?? text;
+  } catch {
+    return text;
+  }
+}
+
+export async function getRecentlyPlayed(limit = 10) {
   const token = await getAccessToken();
 
   const res = await fetch(
-    "https://api.spotify.com/v1/me/player/recently-played?limit=5",
+    `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   if (res.status === 204) return [];
@@ -34,7 +48,7 @@ export async function getRecentlyPlayed() {
 
   if (!res.ok) {
     throw new Error(
-      `Spotify recently-played request failed (${res.status}): ${text || "Unknown error"}`,
+      `Spotify recently-played request failed (${res.status}): ${parseErrorMessage(text)}`,
     );
   }
 
@@ -43,17 +57,27 @@ export async function getRecentlyPlayed() {
   let data: SpotifyRecentlyPlayedResponse;
 
   try {
-    data = JSON.parse(text);
+    data = JSON.parse(text) as SpotifyRecentlyPlayedResponse;
   } catch {
     throw new Error("Failed to parse Spotify recently-played response");
   }
 
   if (!Array.isArray(data.items)) return [];
 
-  return data.items.map((item) => ({
-    title: item.track.name,
-    artist: item.track.artists.map((a) => a.name).join(", "),
-    image: item.track.album.images[0]?.url,
-    url: item.track.external_urls.spotify,
-  }));
+  // dedupe track yang sama agar list lebih variatif
+  const seen = new Set<string>();
+  const mapped = data.items
+    .map((item) => ({
+      title: item.track.name,
+      artist: item.track.artists.map((a) => a.name).join(", "),
+      image: item.track.album.images[0]?.url,
+      url: item.track.external_urls.spotify,
+    }))
+    .filter((track) => {
+      if (seen.has(track.url)) return false;
+      seen.add(track.url);
+      return true;
+    });
+
+  return mapped;
 }
