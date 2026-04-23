@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Settings } from "lucide-react";
+import { Laptop, Settings } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
+import { Link } from "@tanstack/react-router";
 
 export default function DockSettings() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,34 +32,17 @@ export default function DockSettings() {
           "bg-white/90 dark:bg-neutral-900/90",
           "shadow-[0_12px_30px_rgba(0,0,0,0.14)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.3)]",
 
-          isOpen ? "h-25" : "h-14.5"
+          isOpen ? "h-34.5" : "h-14.5",
         )}
       >
-        <div
-          className={cn(
-            "flex w-full flex-1 flex-col items-center justify-end overflow-hidden transition-all duration-300 ease-out",
-            isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          )}
-        >
+        <div className={cn("flex w-full flex-1 flex-col items-center justify-end overflow-hidden transition-all duration-300 ease-out", isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2")}>
           <div className="flex w-full flex-col items-center gap-0">
-            <button
-              type="button"
-              aria-label="Theme"
-              className={cn(
-                buttonVariants({ variant: "ghost", size: "icon" }),
-                "size-10 rounded-full",
-                "bg-transparent",
-                "hover:bg-neutral-200/60!",
-                "dark:hover:!bg-neutral-800/60!",
-                "focus:bg-transparent!",
-                "focus-visible:bg-transparent!",
-
-                // hilangkan ring putih
-                "focus-visible:ring-0 focus-visible:ring-offset-0"
-              )}
-            >
+            <button type="button" aria-label="Theme" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-10 rounded-full", "bg-transparent", "hover:bg-neutral-200/60!", "dark:hover:!bg-neutral-800/60!", "focus:bg-transparent!", "focus-visible:bg-transparent!", "focus-visible:ring-0 focus-visible:ring-offset-0")}>
               <AnimatedThemeToggler />
             </button>
+            <Link to="/uses" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-10 rounded-full", "bg-transparent", "hover:bg-neutral-200/60!", "dark:hover:!bg-neutral-800/60!", "focus:bg-transparent!", "focus-visible:bg-transparent!", "focus-visible:ring-0 focus-visible:ring-offset-0")} aria-label="Uses">
+              <Laptop className="size-4" />
+            </Link>
           </div>
         </div>
 
@@ -76,15 +60,10 @@ export default function DockSettings() {
             "focus:bg-transparent",
             "focus-visible:bg-transparent",
 
-            "focus-visible:ring-0 focus-visible:ring-offset-0"
+            "focus-visible:ring-0 focus-visible:ring-offset-0",
           )}
         >
-          <Settings
-            className={cn(
-              "size-4 transition-transform duration-300",
-              isOpen && "rotate-180"
-            )}
-          />
+          <Settings className={cn("size-4 transition-transform duration-300", isOpen && "rotate-180")} />
         </button>
       </div>
     </div>
