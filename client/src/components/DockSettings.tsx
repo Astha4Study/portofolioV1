@@ -37,9 +37,7 @@ export default function DockSettings() {
       >
         <div className={cn("flex w-full flex-1 flex-col items-center justify-end overflow-hidden transition-all duration-300 ease-out", isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2")}>
           <div className="flex w-full flex-col items-center gap-0">
-            <button type="button" aria-label="Theme" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-10 rounded-full", "bg-transparent", "hover:bg-neutral-200/60!", "dark:hover:!bg-neutral-800/60!", "focus:bg-transparent!", "focus-visible:bg-transparent!", "focus-visible:ring-0 focus-visible:ring-offset-0")}>
-              <AnimatedThemeToggler />
-            </button>
+            <AnimatedThemeToggler aria-label="Theme" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-10 rounded-full", "bg-transparent", "hover:bg-neutral-200/60!", "dark:hover:!bg-neutral-800/60!", "focus:bg-transparent!", "focus-visible:bg-transparent!", "focus-visible:ring-0 focus-visible:ring-offset-0")} />
             <Link to="/uses" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "size-10 rounded-full", "bg-transparent", "hover:bg-neutral-200/60!", "dark:hover:!bg-neutral-800/60!", "focus:bg-transparent!", "focus-visible:bg-transparent!", "focus-visible:ring-0 focus-visible:ring-offset-0")} aria-label="Uses">
               <Laptop className="size-4" />
             </Link>
