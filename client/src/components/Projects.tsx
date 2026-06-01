@@ -144,7 +144,7 @@ export default function Projects() {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((project, index) => (
           <ProjectCard
             key={index}

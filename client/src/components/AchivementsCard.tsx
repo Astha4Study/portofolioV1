@@ -18,7 +18,7 @@ export default function AchivementsCard({
   return (
     <div className="group h-full flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg dark:hover:shadow-neutral-800/50 transition-all duration-300">
       {/* IMAGE */}
-      <div className="h-40 w-full bg-linear-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 overflow-hidden">
+      <div className="h-44 sm:h-40 md:h-44 w-full bg-linear-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
@@ -28,12 +28,13 @@ export default function AchivementsCard({
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 flex flex-col flex-1 gap-3">
+      <div className="p-4 sm:p-5 flex flex-col flex-1 gap-3">
         {/* Title + Year */}
         <div>
-          <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1">
+          <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1 line-clamp-2">
             {title}
           </h3>
+
           <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
             {year}
           </p>

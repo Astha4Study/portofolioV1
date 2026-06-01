@@ -12,41 +12,68 @@ const icon = {
       ></path>
     </svg>
   ),
-}
+};
 
 const tagStyles: Record<string, string> = {
-  Bootstrap: "bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800",
+  Bootstrap:
+    "bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800",
   Bun: "bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-300 border-stone-200 dark:border-stone-700",
   CSS3: "bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
   Dart: "bg-cyan-100 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800",
-  Docker: "bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 border-blue-200 dark:border-blue-800",
-  "Express.js": "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700",
-  Figma: "bg-orange-100 dark:bg-orange-950/50 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800",
-  Flutter: "bg-sky-100 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
-  GitHub: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700",
+  Docker:
+    "bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+  "Express.js":
+    "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700",
+  Figma:
+    "bg-orange-100 dark:bg-orange-950/50 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800",
+  Flutter:
+    "bg-sky-100 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
+  GitHub:
+    "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700",
   Hono: "bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-300 border-orange-200 dark:border-orange-800",
-  HTML5: "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
-  JavaScript: "bg-yellow-100 dark:bg-yellow-950/50 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800",
-  Laravel: "bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800",
-  MongoDB: "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800",
-  MySQL: "bg-sky-100 dark:bg-sky-950/50 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-800",
-  "Next.js": "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-zinc-800 dark:border-neutral-700",
-  NodeJS: "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
-  React: "bg-blue-50 dark:bg-blue-950/30 text-blue-500 dark:text-blue-400 border-blue-100 dark:border-blue-800",
-  Svelte: "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
-  Sveltekit: "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-800",
-  "Tailwind CSS": "bg-cyan-50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800",
-  TypeScript: "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+  HTML5:
+    "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
+  JavaScript:
+    "bg-yellow-100 dark:bg-yellow-950/50 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800",
+  Laravel:
+    "bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800",
+  MongoDB:
+    "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800",
+  MySQL:
+    "bg-sky-100 dark:bg-sky-950/50 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-800",
+  "Next.js":
+    "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-zinc-800 dark:border-neutral-700",
+  NodeJS:
+    "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+  React:
+    "bg-blue-50 dark:bg-blue-950/30 text-blue-500 dark:text-blue-400 border-blue-100 dark:border-blue-800",
+  Svelte:
+    "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
+  Sveltekit:
+    "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-800",
+  "Tailwind CSS":
+    "bg-cyan-50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800",
+  TypeScript:
+    "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800",
   Vite: "bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800",
-  "Shadcn UI": "bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700",
-  "Gemini API": "bg-indigo-100 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800",
-  Vercel: "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-black dark:border-neutral-700",
-  Firebase: "bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800",
-  "Framer Motion": "bg-pink-100 dark:bg-pink-950/50 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800",
-  Zustand: "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
-  Cloudinary: "bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
-  Prisma: "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800",
-  PostgreSQL: "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+  "Shadcn UI":
+    "bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700",
+  "Gemini API":
+    "bg-indigo-100 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800",
+  Vercel:
+    "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-black dark:border-neutral-700",
+  Firebase:
+    "bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+  "Framer Motion":
+    "bg-pink-100 dark:bg-pink-950/50 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800",
+  Zustand:
+    "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
+  Cloudinary:
+    "bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+  Prisma:
+    "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800",
+  PostgreSQL:
+    "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800",
 };
 
 type ProjectCardProps = {
@@ -73,7 +100,7 @@ export function ProjectCard({
   return (
     <div className="group h-full flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg dark:hover:shadow-neutral-800/50 transition-all duration-300">
       {/* IMAGE */}
-      <div className="h-40 w-full bg-linear-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 flex items-center justify-center overflow-hidden">
+      <div className="h-44 sm:h-40 md:h-44 w-full bg-linear-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 flex items-center justify-center overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
@@ -83,13 +110,15 @@ export function ProjectCard({
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 flex flex-col flex-1 gap-3">
+      <div className="p-4 sm:p-5 flex flex-col flex-1 gap-3">
         {/* Title + Year */}
         <div>
-          <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1">
+          <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1 line-clamp-2">
             {title}
           </h3>
-          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">{year}</p>
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+            {year}
+          </p>
         </div>
 
         {/* Description */}
@@ -113,7 +142,7 @@ export function ProjectCard({
         </div>
 
         {/* BUTTONS */}
-        <div className="mt-auto flex gap-2 pt-1">
+        <div className="mt-auto flex flex-col sm:flex-row gap-2 pt-1">
           {websiteUrl ? (
             <a
               href={websiteUrl}

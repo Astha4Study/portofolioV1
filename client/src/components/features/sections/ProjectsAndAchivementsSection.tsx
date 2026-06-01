@@ -10,7 +10,7 @@ export default function ProjectsAndAchivementsSection() {
   );
 
   return (
-    <section className="w-full flex flex-col items-center gap-4">
+    <section className="w-full flex flex-col items-center gap-4 px-5 sm:px-6 md:px-0">
       {/* Badge */}
       <span className="font-medium px-4 py-1.5 bg-neutral-900 dark:bg-neutral-100 rounded-full text-sm text-white dark:text-neutral-900 transition-colors duration-200">
         Projects & Achievements
@@ -30,7 +30,8 @@ export default function ProjectsAndAchivementsSection() {
         </p>
       </div>
 
-      <ButtonGroup className="w-full grid grid-cols-2">
+      {/* Tabs */}
+      <ButtonGroup className="w-full max-w-md grid grid-cols-2">
         <Button
           className="w-full"
           variant={activeTab === "projects" ? "default" : "outline"}
@@ -48,6 +49,7 @@ export default function ProjectsAndAchivementsSection() {
         </Button>
       </ButtonGroup>
 
+      {/* Content */}
       <div className="w-full transition-all duration-300">
         {activeTab === "projects" && <Projects />}
         {activeTab === "achievements" && <Achivements />}

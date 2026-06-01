@@ -24,100 +24,123 @@ export default function ExperienceAndEducationSection() {
   const skills = [
     {
       name: "Bootstrap",
-      className: "bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800",
+      className:
+        "bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800",
     },
     {
       name: "Bun",
-      className: "bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-300 border-stone-200 dark:border-stone-700"
+      className:
+        "bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-300 border-stone-200 dark:border-stone-700",
     },
     {
       name: "CSS3",
-      className: "bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+      className:
+        "bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
     },
     {
       name: "Dart",
-      className: "bg-cyan-100 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800"
+      className:
+        "bg-cyan-100 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800",
     },
     {
       name: "Docker",
-      className: "bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+      className:
+        "bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 border-blue-200 dark:border-blue-800",
     },
     {
       name: "Express.js",
-      className: "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700"
+      className:
+        "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700",
     },
     {
       name: "Figma",
-      className: "bg-orange-100 dark:bg-orange-950/50 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800"
+      className:
+        "bg-orange-100 dark:bg-orange-950/50 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800",
     },
     {
       name: "Flutter",
-      className: "bg-sky-100 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800"
+      className:
+        "bg-sky-100 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
     },
     {
       name: "GitHub",
-      className: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700"
+      className:
+        "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700",
     },
     {
       name: "Hono",
-      className: "bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-300 border-orange-200 dark:border-orange-800"
+      className:
+        "bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-300 border-orange-200 dark:border-orange-800",
     },
     {
       name: "HTML5",
-      className: "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800"
+      className:
+        "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
     },
     {
       name: "JavaScript",
-      className: "bg-yellow-100 dark:bg-yellow-950/50 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800"
+      className:
+        "bg-yellow-100 dark:bg-yellow-950/50 text-yellow-800 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800",
     },
     {
       name: "Laravel",
-      className: "bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"
+      className:
+        "bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800",
     },
     {
       name: "MongoDB",
-      className: "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800"
+      className:
+        "bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800",
     },
     {
       name: "MySQL",
-      className: "bg-sky-100 dark:bg-sky-950/50 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-800"
+      className:
+        "bg-sky-100 dark:bg-sky-950/50 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-800",
     },
     {
       name: "Next JS",
-      className: "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-zinc-800 dark:border-neutral-700"
+      className:
+        "bg-black dark:bg-neutral-800 text-white dark:text-neutral-100 border-zinc-800 dark:border-neutral-700",
     },
     {
       name: "NodeJS",
-      className: "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+      className:
+        "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
     },
     {
       name: "React",
-      className: "bg-blue-50 dark:bg-blue-950/30 text-blue-500 dark:text-blue-400 border-blue-100 dark:border-blue-800"
+      className:
+        "bg-blue-50 dark:bg-blue-950/30 text-blue-500 dark:text-blue-400 border-blue-100 dark:border-blue-800",
     },
     {
       name: "Svelte",
-      className: "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800"
+      className:
+        "bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800",
     },
     {
       name: "Sveltekit",
-      className: "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-800"
+      className:
+        "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-800",
     },
     {
       name: "TailwindCSS",
-      className: "bg-cyan-50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800"
+      className:
+        "bg-cyan-50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800",
     },
     {
       name: "TypeScript",
-      className: "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+      className:
+        "bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800",
     },
     {
       name: "Vite",
-      className: "bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800"
+      className:
+        "bg-violet-100 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800",
     },
   ];
 
   return (
-    <section className="w-full flex flex-col gap-8">
+    <section className="w-full flex flex-col gap-8 px-5 sm:px-6 md:px-0">
       {/* Experience */}
       <div className="flex flex-col gap-4">
         <p className="font-semibold text-lg text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
@@ -139,7 +162,7 @@ export default function ExperienceAndEducationSection() {
               onClick={() => toggle(0)}
               onMouseEnter={() => setHoveredIndex(0)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group flex items-start justify-between w-full text-left"
+              className="group flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-4 w-full text-left"
             >
               <div className="flex items-start gap-2">
                 <div className="flex flex-col">
@@ -172,7 +195,7 @@ export default function ExperienceAndEducationSection() {
                 </div>
               </div>
 
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200">
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200 shrink-0">
                 Mar 2026 — Present
               </p>
             </button>
@@ -247,7 +270,7 @@ export default function ExperienceAndEducationSection() {
                 </div>
               </div>
 
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200">
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200 shrink-0">
                 Oct 2025 — Jan 2025
               </p>
             </button>
@@ -290,7 +313,7 @@ export default function ExperienceAndEducationSection() {
           </div>
 
           <div className="flex flex-col gap-1 w-full">
-            <div className="flex items-center justify-between flex-wrap gap-1">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <p className="font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
                 Universitas Amikom Purwokerto
               </p>

@@ -7,14 +7,14 @@ import { Link } from "@tanstack/react-router";
 
 export default function AboutSection() {
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full flex flex-col gap-3 px-5 sm:px-6 md:px-0">
       {/* Title */}
       <p className="font-semibold text-lg text-neutral-950 dark:text-neutral-100 transition-colors duration-200">
         About
       </p>
 
       {/* Content */}
-      <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 leading-relaxed tracking-[0.01em] max-w-2xl transition-colors duration-200">
+      <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 leading-relaxed tracking-[0.01em] max-w-full sm:max-w-2xl transition-colors duration-200">
         As an Informatics student at Universitas Amikom Purwokerto, I have built
         practical experience as {/* PRABU BIMA */}
         <HoverCard openDelay={100} closeDelay={100}>
@@ -23,7 +23,8 @@ export default function AboutSection() {
               a Fullstack Developer intern at CV Prabu Bima Tech
             </span>
           </HoverCardTrigger>
-          <HoverCardContent className="w-72 dark:bg-neutral-900 dark:border-neutral-700">
+
+          <HoverCardContent className="w-[90vw] max-w-72 dark:bg-neutral-900 dark:border-neutral-700">
             <div className="flex flex-col gap-1">
               <p className="font-semibold text-sm dark:text-neutral-100">
                 CV Prabu Bima Tech
@@ -45,7 +46,8 @@ export default function AboutSection() {
               a Frontend Developer intern at PT Puskomedia Indonesia Kreatif
             </span>
           </HoverCardTrigger>
-          <HoverCardContent className="w-72 dark:bg-neutral-900 dark:border-neutral-700">
+
+          <HoverCardContent className="w-[90vw] max-w-72 dark:bg-neutral-900 dark:border-neutral-700">
             <div className="flex flex-col gap-1">
               <p className="font-semibold text-sm dark:text-neutral-100">
                 PT Puskomedia Indonesia Kreatif

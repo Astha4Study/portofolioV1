@@ -79,22 +79,39 @@ export default function GithubInsights() {
   const profile: GitHubProfile = profileQuery.data;
 
   return (
-    <section className="w-full space-y-8">
+    <section className="w-full space-y-8 px-5 sm:px-6 md:px-0">
       {/* Profile */}
       <div className="flex flex-col gap-5 border-b border-neutral-200 dark:border-neutral-800 pb-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-3">
-          <Badge variant="outline" className="border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 transition-colors duration-200" > GitHub </Badge>
+        <div className="space-y-3 min-w-0">
+          <Badge
+            variant="outline"
+            className="border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 transition-colors duration-200"
+          >
+            GitHub
+          </Badge>
 
-          <div className="space-y-1"> <h2 className="text-2xl font-bold tracking-tight text-neutral-950 dark:text-neutral-100 sm:text-3xl transition-colors duration-200"> {profile?.name || profile?.username} </h2> <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 sm:text-base transition-colors duration-200"> @{profile?.username} </p> </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl font-bold tracking-tight text-neutral-950 dark:text-neutral-100 sm:text-3xl transition-colors duration-200 wrap-break-word">
+              {profile?.name || profile?.username}
+            </h2>
 
-          {profile?.bio ? ( <p className="max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 transition-colors duration-200"> {profile.bio} </p> ) : null}
+            <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 sm:text-base transition-colors duration-200 break-all">
+              @{profile?.username}
+            </p>
+          </div>
+
+          {profile?.bio ? (
+            <p className="max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 transition-colors duration-200">
+              {profile.bio}
+            </p>
+          ) : null}
         </div>
 
-        <div className="shrink-0">
+        <div className="hidden sm:block shrink-0">
           <img
             src={profile?.image || "/default-avatar.png"}
             alt="Avatar"
-            className="h-28 w-28 rounded-full object-cover"
+            className="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover"
           />
         </div>
       </div>

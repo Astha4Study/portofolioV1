@@ -15,22 +15,35 @@ type Props = {
 
 function Card({ item }: { item: UseItem }) {
   return (
-    <div className="group relative flex flex-col rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-card/60 transition-all duration-300 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60">
-      <div className="p-3.5 space-y-2">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{item.name}</p>
+    <div className="group rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-card/60 transition-all duration-300 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60">
+      <div className="p-3.5 sm:p-4 space-y-3">
+        {/* Header */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 wrap-break-word">
+            {item.name}
+          </p>
 
-          <Badge variant="default">{item.badge}</Badge>
+          <div className="flex items-center gap-2 shrink-0">
+            <Badge variant="default">{item.badge}</Badge>
+
+            {item.link && (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
+          </div>
         </div>
 
-        <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 w-125">{item.description}</p>
+        {/* Description */}
+        <p className="text-xs sm:text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+          {item.description}
+        </p>
       </div>
-
-      {item.link && (
-        <a href={item.link} target="_blank" rel="noreferrer" className="absolute bottom-4.5 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100">
-          <ExternalLink className="w-4 h-4" />
-        </a>
-      )}
     </div>
   );
 }
@@ -38,8 +51,8 @@ function Card({ item }: { item: UseItem }) {
 export default function UsesCards({ items }: Props) {
   return (
     <div className="space-y-3">
-      {items.map((i) => (
-        <Card key={i.name} item={i} />
+      {items.map((item) => (
+        <Card key={item.name} item={item} />
       ))}
     </div>
   );

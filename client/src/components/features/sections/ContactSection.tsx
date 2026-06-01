@@ -1,13 +1,13 @@
 export default function ContactSection() {
   return (
-    <section className="w-full flex flex-col items-center gap-4">
+    <section className="w-full flex flex-col items-center gap-4 px-5 sm:px-6 md:px-0">
       {/* Badge */}
       <span className="font-medium px-4 py-1.5 bg-neutral-900 dark:bg-neutral-100 rounded-full text-sm text-white dark:text-neutral-900 transition-colors duration-200">
         Contact
       </span>
 
       {/* Heading */}
-      <div className="text-center max-w-2xl space-y-3">
+      <div className="w-full max-w-2xl text-center space-y-3">
         <h2 className="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight transition-colors duration-200">
           Get in touch
         </h2>
@@ -18,7 +18,7 @@ export default function ContactSection() {
           via{" "}
           <a
             href="mailto:priyanto.dev@gmail.com"
-            className="text-neutral-950 dark:text-neutral-100 hover:underline transition-colors duration-200"
+            className="font-medium break-all text-neutral-950 dark:text-neutral-100 hover:underline transition-colors duration-200"
           >
             email
           </a>{" "}
@@ -27,7 +27,7 @@ export default function ContactSection() {
             href="https://www.instagram.com/rheiyn._/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-950 dark:text-neutral-100 hover:underline transition-colors duration-200"
+            className="font-medium text-neutral-950 dark:text-neutral-100 hover:underline transition-colors duration-200"
           >
             Instagram
           </a>

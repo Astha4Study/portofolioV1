@@ -42,8 +42,8 @@ export default function WakaTimeInsights() {
   });
 
   return (
-    <section className="w-full space-y-6 border-t border-neutral-200 dark:border-neutral-800 pt-6 transition-colors duration-200">
-      <div className="space-y-3 pb-2 sm:flex sm:items-start sm:justify-between sm:space-y-0">
+    <section className="w-full space-y-6 border-t border-neutral-200 dark:border-neutral-800 pt-6 px-5 sm:px-6 md:px-0 transition-colors duration-200">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-3">
           <Badge
             variant="outline"
@@ -56,6 +56,7 @@ export default function WakaTimeInsights() {
             <h2 className="text-xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-100 sm:text-2xl transition-colors duration-200">
               Coding activity over the past 7 days
             </h2>
+
             <p className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors duration-200">
               Weekly summary from WakaTime with productivity highlights.
             </p>
@@ -63,8 +64,8 @@ export default function WakaTimeInsights() {
         </div>
 
         <Badge
-          variant={"default"}
-          className="dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200 transition-colors duration-200"
+          variant="default"
+          className="w-fit shrink-0 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200 transition-colors duration-200"
         >
           Last update: {lastUpdate}
         </Badge>
