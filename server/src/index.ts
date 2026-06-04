@@ -11,11 +11,24 @@ import auth from "./lib/auth";
 
 export const app = new Hono();
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.ALLOWED_ORIGINS?.split(',') || []
+    : '*',
+  credentials: true,
+}));
 app.route("/auth", auth);
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
+});
+
+app.get("/health", (c) => {
+  return c.json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  });
 });
 
 app.get("/hello", async (c) => {
@@ -38,26 +51,39 @@ app.get("/test", async (c) => {
 
 app.get("/auth/github", (c) => {
   const clientId = process.env.GITHUB_CLIENT_ID;
+  if (!clientId) {
+    return c.json({ error: "GitHub client ID not configured" }, 500);
+  }
   const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=read:user`;
   return c.redirect(url);
 });
 
 app.get("/auth/github/callback", async (c) => {
-  const code = c.req.query("code");
-  if (!code) return c.json({ error: "No code provided" }, 400);
+  try {
+    const code = c.req.query("code");
+    if (!code) return c.json({ error: "No code provided" }, 400);
 
-  const res = await fetch("https://github.com/login/oauth/access_token", {
-    method: "POST",
-    headers: { Accept: "application/json" },
-    body: new URLSearchParams({
-      client_id: process.env.GITHUB_CLIENT_ID!,
-      client_secret: process.env.GITHUB_CLIENT_SECRET!,
-      code: code,
-    }),
-  });
+    const res = await fetch("https://github.com/login/oauth/access_token", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new URLSearchParams({
+        client_id: process.env.GITHUB_CLIENT_ID!,
+        client_secret: process.env.GITHUB_CLIENT_SECRET!,
+        code: code,
+      }),
+    });
 
-  const data = await res.json();
-  return c.json(data);
+    const data = await res.json();
+    return c.json(data);
+  } catch (error) {
+    return c.json(
+      {
+        success: false,
+        message: "Failed to authenticate with GitHub",
+      },
+      500
+    );
+  }
 });
 
 app.get("/github/repos", async (c) => {
@@ -170,11 +196,27 @@ app.get("/github/pinned-repos", async (c) => {
 
 app.get("/wakatime/stats", async (c) => {
   try {
-    const data = await getWakaTimeStats(process.env.WAKATIME_API_KEY!);
+    const apiKey = process.env.WAKATIME_API_KEY;
+    if (!apiKey) {
+      return c.json(
+        {
+          success: false,
+          message: "WAKATIME_API_KEY is not set",
+        },
+        500
+      );
+    }
 
+    const data = await getWakaTimeStats(apiKey);
     return c.json(data);
   } catch (err: any) {
-    return c.json({ error: err.message }, 500);
+    return c.json(
+      {
+        success: false,
+        message: err.message || "Failed to fetch WakaTime stats",
+      },
+      500
+    );
   }
 });
 

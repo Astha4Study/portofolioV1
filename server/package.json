@@ -16,7 +16,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\""
+    "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\"",
+    "start": "NODE_ENV=production bun run dist/index.js",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
