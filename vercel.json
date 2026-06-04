@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "cd server && prisma generate && cd .. && bun run build:server",
   "installCommand": "bun install",
   "builds": [
     {
@@ -13,8 +12,5 @@
       "src": "/(.*)",
       "dest": "server/src/index.ts"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
