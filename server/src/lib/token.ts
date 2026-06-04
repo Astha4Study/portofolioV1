@@ -1,4 +1,4 @@
-import { generateJWT } from "./jwt";
+import { generateJWT } from "./jwt.js";
 
 
 type GitHubInstallation = {

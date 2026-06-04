@@ -1,4 +1,5 @@
 import 'dotenv/config';
-import app from '../src/index';
+import { handle } from 'hono/vercel';
+import app from '../src/index.js';
 
-export default app;
+export default handle(app);

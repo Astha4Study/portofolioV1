@@ -1,6 +1,7 @@
 import { Hono } from "hono";
-import { prisma } from "./prisma";
-import { authMiddleware } from "../middleware/auth";
+import { prisma } from "./prisma.js";
+import { authMiddleware } from "../middleware/auth.js";
+import { sign } from "hono/jwt";
 
 const auth = new Hono();
 

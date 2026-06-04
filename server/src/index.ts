@@ -2,12 +2,12 @@ import 'dotenv/config';
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import type { ApiResponse } from "shared";
-import { getInstallationToken } from "./lib/token";
-import { getContributions } from "./lib/contributions";
-import { getProfile } from "./lib/profile";
-import { getPinnedRepositories } from "./lib/repository";
-import { getWakaTimeStats } from "./lib/wakatime";
-import auth from "./lib/auth";
+import { getInstallationToken } from "./lib/token.js";
+import { getContributions } from "./lib/contributions.js";
+import { getProfile } from "./lib/profile.js";
+import { getPinnedRepositories } from "./lib/repository.js";
+import { getWakaTimeStats } from "./lib/wakatime.js";
+import auth from "./lib/auth.js";
 
 export const app = new Hono();
 
