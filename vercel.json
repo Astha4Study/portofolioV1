@@ -1,17 +1,8 @@
 {
-  "version": 2,
-  "buildCommand": "prisma generate --schema=./server/prisma/schema.prisma && turbo build --filter=shared --filter=server",
-  "installCommand": "bun install",
-  "builds": [
+  "rewrites": [
     {
-      "src": "server/src/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server/src/index.ts"
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ]
 }

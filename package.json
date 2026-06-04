@@ -9,7 +9,8 @@
   "workspaces": [
     "./server",
     "./client",
-    "./shared"
+    "./shared",
+    "./api"
   ],
   "scripts": {
     "dev": "turbo dev",
@@ -17,12 +18,11 @@
     "dev:server": "turbo dev --filter=server",
     "build": "turbo build",
     "build:client": "turbo build --filter=client",
-    "build:server": "turbo build --filter=server",
+    "build:server": "turbo build --filter=shared --filter=server",
     "vercel-build": "turbo build --filter=shared --filter=server",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
-    "test": "turbo test",
-    "postinstall": "prisma generate --schema=./server/prisma/schema.prisma || true"
+    "test": "turbo test"
   },
   "keywords": [
     "bun",
