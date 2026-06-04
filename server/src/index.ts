@@ -9,7 +9,7 @@ import { getPinnedRepositories } from "./lib/repository.js";
 import { getWakaTimeStats } from "./lib/wakatime.js";
 import auth from "./lib/auth.js";
 
-export const app = new Hono();
+const app = new Hono();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
