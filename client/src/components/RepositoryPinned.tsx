@@ -1,4 +1,5 @@
 import { GitHubPinnedRepository } from "@/lib/repository";
+import RepositoryCard from "./RepositoryCard";
 
 export default function RepositoryPinned({ data }: { data: GitHubPinnedRepository[] }) {
   if (!data || data.length === 0) {
