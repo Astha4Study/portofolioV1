@@ -15,6 +15,8 @@ COPY shared ./shared
 COPY server ./server
 COPY package.json bun.lock tsconfig.json turbo.json ./
 
+# Generate Prisma Client before build
+RUN cd server && bunx prisma generate && cd ..
 RUN bun run build --filter=shared --filter=server
 
 # Production image

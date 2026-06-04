@@ -15,7 +15,7 @@
     }
   },
   "scripts": {
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\"",
     "start": "NODE_ENV=production bun run dist/index.js",
     "db:migrate": "prisma migrate deploy",

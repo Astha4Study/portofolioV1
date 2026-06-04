@@ -21,7 +21,7 @@
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "test": "turbo test",
-    "postinstall": "turbo build --filter=shared --filter=server"
+    "postinstall": "cd server && prisma generate && cd .. && turbo build --filter=shared --filter=server"
   },
   "keywords": [
     "bun",
