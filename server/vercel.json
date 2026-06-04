@@ -1,6 +1,6 @@
 {
   "installCommand": "bun install",
-  "buildCommand": "bun run build:server",
+  "buildCommand": "bun run build",
   "framework": null,
   "rewrites": [
     {
