@@ -1,3 +1,5 @@
+import { API_URL } from "./config";
+
 export type GitHubPinnedRepository = {
   name: string;
   description: string | null;
@@ -17,7 +19,7 @@ export type GitHubPinnedRepository = {
 };
 
 export async function fetchPinnedRepos(): Promise<GitHubPinnedRepository[]> {
-  const res = await fetch("http://localhost:3000/github/pinned-repos");
+  const res = await fetch(`${API_URL}/github/pinned-repos`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch pinned repositories");

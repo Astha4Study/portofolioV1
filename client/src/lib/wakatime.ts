@@ -1,3 +1,5 @@
+import { API_URL } from "./config";
+
 export type WakaTimeStats = {
   start: string;
   end: string;
@@ -23,7 +25,7 @@ function toSafeString(value: unknown) {
 }
 
 export async function fetchWakaTimeStats(): Promise<WakaTimeStats> {
-  const res = await fetch("http://localhost:3000/wakatime/stats");
+  const res = await fetch(`${API_URL}/wakatime/stats`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch WakaTime stats");

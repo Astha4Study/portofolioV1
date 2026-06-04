@@ -8,6 +8,8 @@ import { LoadingContributionGithub } from "@/components/LoadingContributionGithu
 import { LoadingRepositoryPinned } from "@/components/LoadingRepositoryPinned";
 import { Skeleton } from "@/components/ui/skeleton";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export type GitHubProfile = {
   name: string | null;
   username: string;
@@ -16,19 +18,19 @@ export type GitHubProfile = {
 };
 
 async function fetchProfile() {
-  const res = await fetch("http://localhost:3000/github/profile");
+  const res = await fetch(`${API_URL}/github/profile`);
   if (!res.ok) throw new Error("Failed to fetch profile");
   return res.json();
 }
 
 async function fetchContributions() {
-  const res = await fetch("http://localhost:3000/github/contributions");
+  const res = await fetch(`${API_URL}/github/contributions`);
   if (!res.ok) throw new Error("Failed to fetch contributions");
   return res.json();
 }
 
 async function fetchRepos() {
-  const res = await fetch("http://localhost:3000/github/pinned-repos");
+  const res = await fetch(`${API_URL}/github/pinned-repos`);
   if (!res.ok) throw new Error("Failed to fetch repositories");
   return res.json();
 }
