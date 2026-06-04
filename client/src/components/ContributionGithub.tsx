@@ -16,6 +16,12 @@ import {
 
 import { Badge } from "./ui/badge";
 
+type ContributionDay = {
+  date: string;
+  count: number;
+  level: number;
+};
+
 const getLevelFillColor = (level: number) => {
   if (level === 0) return "var(--muted)";
   if (level === 1) return "rgb(16, 185, 129)";
@@ -25,7 +31,7 @@ const getLevelFillColor = (level: number) => {
   return "var(--muted)";
 };
 
-const ContributionGithub = ({ data }) => {
+const ContributionGithub = ({ data }: { data: ContributionDay[] }) => {
   if (!data) {
     return (
       <p className="text-sm text-red-500 dark:text-red-400">

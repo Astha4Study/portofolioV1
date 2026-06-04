@@ -1,6 +1,6 @@
-import RepositoryCard from "./RepositoryCard";
+import { GitHubPinnedRepository } from "@/lib/repository";
 
-export default function RepositoryPinned({ data }) {
+export default function RepositoryPinned({ data }: { data: GitHubPinnedRepository[] }) {
   if (!data || data.length === 0) {
     return (
       <section className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
@@ -16,7 +16,7 @@ export default function RepositoryPinned({ data }) {
       </h2>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {data.map((repository) => (
+        {data.map((repository: GitHubPinnedRepository) => (
           <RepositoryCard key={repository.url} repository={repository} />
         ))}
       </div>
