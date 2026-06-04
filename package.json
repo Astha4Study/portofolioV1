@@ -22,7 +22,8 @@
     "vercel-build": "turbo build --filter=shared --filter=server",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
-    "test": "turbo test"
+    "test": "turbo test",
+    "postinstall": "bunx prisma generate --schema=./server/prisma/schema.prisma"
   },
   "keywords": [
     "bun",
