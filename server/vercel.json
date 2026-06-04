@@ -2,6 +2,7 @@
   "installCommand": "bun install",
   "buildCommand": "bun run build",
   "framework": null,
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/(.*)",
