@@ -12,11 +12,13 @@
 
     // Types
     "types": ["bun-types"],
+    "paths": {
+      "shared": ["../shared/src/index.ts"]
+    },
 
     // Output settings
     "declaration": true,
     "outDir": "dist",
-    "rootDir": "./src",
     "noEmit": false,
     "emitDecoratorMetadata": true,
 

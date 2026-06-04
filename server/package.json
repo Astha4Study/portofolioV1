@@ -15,8 +15,7 @@
     }
   },
   "scripts": {
-    "build:shared": "bun install --cwd ../shared && bun run --cwd ../shared build",
-    "build": "bun run build:shared && prisma generate && tsc",
+    "build": "prisma generate && tsc",
     "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\"",
     "start": "NODE_ENV=production bun run dist/index.js",
     "db:migrate": "prisma migrate deploy",
@@ -30,8 +29,7 @@
     "dotenv": "^17.4.1",
     "hono": "^4.10.8",
     "jose": "^6.2.2",
-    "jsonwebtoken": "^9.0.3",
-    "shared": "file:../shared"
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",
