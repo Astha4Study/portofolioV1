@@ -1,10 +1,9 @@
 {
-  "name": ".",
+  "name": "portofolio-v1",
   "version": "0.5.1",
   "description": "A monorepo template built with Bun, Hono, Vite, and React",
-  "author": "Steve Simkins",
+  "author": "Astha4Study",
   "license": "MIT",
-  "homepage": "https://github.com/stevedylandev/bhvr",
   "packageManager": "bun@1.2.4",
   "workspaces": [
     "./server",
