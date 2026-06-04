@@ -30,7 +30,7 @@
     "hono": "^4.10.8",
     "jose": "^6.2.2",
     "jsonwebtoken": "^9.0.3",
-    "shared": "workspace:*"
+    "shared": "file:../shared"
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",

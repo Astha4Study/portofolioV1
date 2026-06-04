@@ -1,6 +1,6 @@
 {
   "installCommand": "bun install",
-  "buildCommand": "bun run build",
+  "buildCommand": "cd ../shared && bun install && bun run build && cd ../server && bun run build",
   "framework": null,
   "rewrites": [
     {
