@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "prisma generate --schema=./server/prisma/schema.prisma && turbo build --filter=shared --filter=server",
   "installCommand": "bun install",
   "builds": [
     {
