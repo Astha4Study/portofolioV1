@@ -1,6 +1,7 @@
 {
-  "installCommand": "bun install",
-  "buildCommand": "bun run build",
+  "version": 2,
+  "installCommand": "cd .. && bun install && cd server",
+  "buildCommand": "bunx prisma generate && bun run build",
   "framework": null,
   "outputDirectory": "public",
   "rewrites": [
@@ -8,5 +9,8 @@
       "source": "/(.*)",
       "destination": "/api"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }

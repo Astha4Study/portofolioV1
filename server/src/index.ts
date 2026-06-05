@@ -1,8 +1,13 @@
 import "dotenv/config";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import type { ApiResponse } from "shared";
 import { env } from "./lib/env.js";
+
+// Type definitions (inline to avoid monorepo issues in Vercel)
+type ApiResponse = {
+  message: string;
+  success: true;
+};
 import { logger } from "./lib/logger.js";
 import { errorHandler, requestLogger, rateLimit } from "./middleware/error.js";
 import { securityHeaders } from "./middleware/security.js";
