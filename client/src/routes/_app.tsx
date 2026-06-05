@@ -1,7 +1,6 @@
-import DockMessage from "@/components/DockMessage";
 import DockNav from "@/components/DockNav";
 import DockSettings from "@/components/DockSettings";
-import {ThemeProvider} from "@/components/ThemeProvider"
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
@@ -15,9 +14,10 @@ function RouteComponent() {
         <Outlet />
       </div>
       <div className="flex items-center">
-        <DockSettings />
+        <div className="hidden sm:block">
+          <DockSettings />
+        </div>
         <DockNav />
-        <DockMessage />
       </div>
     </ThemeProvider>
   );

@@ -1,13 +1,8 @@
 import React from "react";
-import { Activity, HomeIcon } from "lucide-react";
+import { Activity, HomeIcon, Laptop } from "lucide-react";
 
-import { cn } from "@/lib/utils";;
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/ui/dock";
 
 export type IconProps = React.SVGProps<SVGSVGElement>;
@@ -23,11 +18,7 @@ const Icons = {
     </svg>
   ),
   instagram: (props: IconProps) => (
-    <svg
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
       <title>Instagram</title>
       <path
         fill="currentColor"
@@ -55,6 +46,7 @@ type DockItem = {
 const dockItems: DockItem[] = [
   { label: "Home", href: "/", icon: HomeIcon },
   { label: "Insights", href: "/insights", icon: Activity },
+  { label: "Uses", href: "/uses", icon: Laptop },
   {
     label: "GitHub",
     href: "https://github.com/Astha4Study",
@@ -79,19 +71,9 @@ export default function DockNav() {
   return (
     <div className="pointer-events-none fixed bottom-5 left-1/2 z-50 w-full max-w-2xl -translate-x-1/2 px-4">
       <TooltipProvider>
-        <Dock
-          direction="middle"
-          className={cn(
-            "pointer-events-auto",
-            "rounded-full backdrop-blur-xl",
-            "bg-white/80 dark:bg-neutral-900/80",
-            "border border-neutral-200/60 dark:border-neutral-800/60",
-            "shadow-[0_12px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.4)]",
-            "transition-colors duration-200"
-          )}
-        >
+        <Dock direction="middle" className={cn("pointer-events-auto", "rounded-full backdrop-blur-xl", "bg-white/80 dark:bg-neutral-900/80", "border border-neutral-200/60 dark:border-neutral-800/60", "shadow-[0_12px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.4)]", "transition-colors duration-200")}>
           {dockItems.map((item) => (
-            <DockIcon key={item.label}>
+            <DockIcon key={item.label} className={item.label === "Uses" ? "sm:hidden" : ""}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
@@ -111,7 +93,7 @@ export default function DockNav() {
                       "hover:text-neutral-900 dark:hover:text-neutral-100",
                       "transition-all duration-200",
                       "hover:scale-110 active:scale-95",
-                      "focus:outline-none focus-visible:ring-0"
+                      "focus:outline-none focus-visible:ring-0",
                     )}
                   >
                     <item.icon className="size-4" />
