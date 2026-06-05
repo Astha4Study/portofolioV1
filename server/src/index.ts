@@ -1,34 +1,95 @@
-import 'dotenv/config';
+import "dotenv/config";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import type { ApiResponse } from "shared";
+import { env } from "./lib/env.js";
+import { logger } from "./lib/logger.js";
+import { errorHandler, requestLogger, rateLimit } from "./middleware/error.js";
+import { securityHeaders } from "./middleware/security.js";
 import { getInstallationToken } from "./lib/token.js";
 import { getContributions } from "./lib/contributions.js";
 import { getProfile } from "./lib/profile.js";
 import { getPinnedRepositories } from "./lib/repository.js";
 import { getWakaTimeStats } from "./lib/wakatime.js";
+import { prisma } from "./lib/prisma.js";
 import auth from "./lib/auth.js";
 
 const app = new Hono();
 
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.ALLOWED_ORIGINS?.split(',') || []
-    : '*',
-  credentials: true,
-}));
+// Global error handler
+app.use("*", errorHandler);
+
+// Request logging
+app.use("*", requestLogger);
+
+// Security headers
+app.use("*", securityHeaders);
+
+// CORS configuration
+app.use(
+  cors({
+    origin: (origin) => {
+      // Allow all origins in development
+      if (env.get("NODE_ENV") !== "production") {
+        return origin || "*";
+      }
+
+      // In production, allow configured origins + localhost for testing
+      const allowedOrigins = env.get("ALLOWED_ORIGINS")?.split(",") || [];
+      const localhostPatterns = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"];
+
+      const allOrigins = [...allowedOrigins, ...localhostPatterns];
+
+      if (!origin || allOrigins.includes(origin)) {
+        return origin || "*";
+      }
+
+      return null;
+    },
+    credentials: true,
+  }),
+);
+
+// Rate limiting for API routes (100 requests per minute)
+app.use("/github/*", rateLimit(100, 60000));
+app.use("/wakatime/*", rateLimit(100, 60000));
 app.route("/auth", auth);
 
 app.get("/", (c) => {
-  return c.text("Hello Hono!");
+  return c.json({
+    name: "Portfolio API",
+    version: "1.0.0",
+    status: "running",
+    timestamp: new Date().toISOString(),
+  });
 });
 
-app.get("/health", (c) => {
-  return c.json({
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-  });
+app.get("/health", async (c) => {
+  try {
+    // Check database connection
+    await prisma.$queryRaw`SELECT 1`;
+
+    return c.json({
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: env.get("NODE_ENV"),
+      services: {
+        database: "connected",
+        api: "running",
+      },
+    });
+  } catch (error) {
+    logger.error("Health check failed", error as Error);
+    return c.json(
+      {
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
+        error: "Database connection failed",
+      },
+      503,
+    );
+  }
 });
 
 app.get("/hello", async (c) => {
@@ -50,10 +111,7 @@ app.get("/test", async (c) => {
 });
 
 app.get("/auth/github", (c) => {
-  const clientId = process.env.GITHUB_CLIENT_ID;
-  if (!clientId) {
-    return c.json({ error: "GitHub client ID not configured" }, 500);
-  }
+  const clientId = env.get("GITHUB_CLIENT_ID");
   const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=read:user`;
   return c.redirect(url);
 });
@@ -67,8 +125,8 @@ app.get("/auth/github/callback", async (c) => {
       method: "POST",
       headers: { Accept: "application/json" },
       body: new URLSearchParams({
-        client_id: process.env.GITHUB_CLIENT_ID!,
-        client_secret: process.env.GITHUB_CLIENT_SECRET!,
+        client_id: env.get("GITHUB_CLIENT_ID"),
+        client_secret: env.get("GITHUB_CLIENT_SECRET"),
         code: code,
       }),
     });
@@ -81,7 +139,7 @@ app.get("/auth/github/callback", async (c) => {
         success: false,
         message: "Failed to authenticate with GitHub",
       },
-      500
+      500,
     );
   }
 });
@@ -112,7 +170,7 @@ app.get("/github/repos", async (c) => {
 
 app.get("/github/contributions", async (c) => {
   try {
-    const token = process.env.GITHUB_USER_TOKEN!;
+    const token = env.get("GITHUB_USER_TOKEN");
 
     const res = await getContributions(token);
 
@@ -140,17 +198,7 @@ app.get("/github/contributions", async (c) => {
 
 app.get("/github/profile", async (c) => {
   try {
-    const token = process.env.GITHUB_USER_TOKEN;
-
-    if (!token) {
-      return c.json(
-        {
-          success: false,
-          message: "GITHUB_USER_TOKEN is not set",
-        },
-        500,
-      );
-    }
+    const token = env.get("GITHUB_USER_TOKEN");
 
     const profile = await getProfile(token);
 
@@ -168,17 +216,7 @@ app.get("/github/profile", async (c) => {
 
 app.get("/github/pinned-repos", async (c) => {
   try {
-    const token = process.env.GITHUB_USER_TOKEN;
-
-    if (!token) {
-      return c.json(
-        {
-          success: false,
-          message: "GITHUB_USER_TOKEN is not set",
-        },
-        500,
-      );
-    }
+    const token = env.get("GITHUB_USER_TOKEN");
 
     const repositories = await getPinnedRepositories(token);
 
@@ -196,16 +234,7 @@ app.get("/github/pinned-repos", async (c) => {
 
 app.get("/wakatime/stats", async (c) => {
   try {
-    const apiKey = process.env.WAKATIME_API_KEY;
-    if (!apiKey) {
-      return c.json(
-        {
-          success: false,
-          message: "WAKATIME_API_KEY is not set",
-        },
-        500
-      );
-    }
+    const apiKey = env.get("WAKATIME_API_KEY");
 
     const data = await getWakaTimeStats(apiKey);
     return c.json(data);
@@ -215,10 +244,9 @@ app.get("/wakatime/stats", async (c) => {
         success: false,
         message: err.message || "Failed to fetch WakaTime stats",
       },
-      500
+      500,
     );
   }
 });
 
 export default app;
-

@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import { env } from "./env.js";
 
-const appId = process.env.GITHUB_APP_ID!;
-const privateKey = process.env.GITHUB_PRIVATE_KEY!.replace(/\\n/g, "\n");
+const appId = env.get("GITHUB_APP_ID");
+const privateKey = env.get("GITHUB_PRIVATE_KEY").replace(/\\n/g, "\n");
 
 export function generateJWT() {
   const now = Math.floor(Date.now() / 1000);
@@ -13,6 +14,6 @@ export function generateJWT() {
       iss: appId,
     },
     privateKey,
-    { algorithm: "RS256" }
+    { algorithm: "RS256" },
   );
 }

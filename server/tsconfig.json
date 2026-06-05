@@ -1,5 +1,4 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
     // Environment settings
     "lib": ["ESNext"],
@@ -12,20 +11,21 @@
 
     // Types
     "types": ["bun-types"],
-    "paths": {
-      "shared": ["../shared/src/index.ts"]
-    },
 
     // Output settings
+    "rootDir": ".",
     "declaration": true,
     "outDir": "dist",
     "noEmit": false,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
     // Module resolution
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": false,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "api/**/*"],
   "exclude": ["node_modules", "dist"]
 }
