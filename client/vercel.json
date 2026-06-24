@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bun run build",
+  "buildCommand": "cd ../shared && bun run build && cd ../client && bun run build",
   "outputDirectory": "dist",
   "installCommand": "bun install",
   "rewrites": [
