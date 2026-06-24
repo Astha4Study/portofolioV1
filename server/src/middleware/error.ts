@@ -55,9 +55,22 @@ export const requestLogger = async (c: Context, next: Next) => {
  */
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
+// Periodically clean up expired entries to prevent memory leaks
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, record] of rateLimitStore) {
+    if (now > record.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+}, 60000);
+
 export const rateLimit = (maxRequests: number, windowMs: number) => {
   return async (c: Context, next: Next) => {
-    const identifier = c.req.header("x-forwarded-for") || "unknown";
+    // Use the first IP from x-forwarded-for (client IP) combined with path prefix for better accuracy
+    const forwardedFor = c.req.header("x-forwarded-for");
+    const clientIp = forwardedFor ? forwardedFor.split(",")[0]?.trim() : "unknown";
+    const identifier = `${clientIp}:${c.req.path.split("/").slice(0, 2).join("/")}`;
     const now = Date.now();
 
     const record = rateLimitStore.get(identifier);

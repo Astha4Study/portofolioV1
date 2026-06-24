@@ -1,4 +1,5 @@
 import "dotenv/config";
+import crypto from "crypto";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { env } from "./lib/env.js";
@@ -39,14 +40,11 @@ app.use(
         return origin || "*";
       }
 
-      // In production, allow configured origins + localhost for testing
-      const allowedOrigins = env.get("ALLOWED_ORIGINS")?.split(",") || [];
-      const localhostPatterns = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"];
+      // In production, only allow explicitly configured origins
+      const allowedOrigins = env.get("ALLOWED_ORIGINS")?.split(",").map(o => o.trim()).filter(Boolean) || [];
 
-      const allOrigins = [...allowedOrigins, ...localhostPatterns];
-
-      if (!origin || allOrigins.includes(origin)) {
-        return origin || "*";
+      if (!origin || allowedOrigins.includes(origin)) {
+        return origin || null;
       }
 
       return null;
@@ -58,6 +56,9 @@ app.use(
 // Rate limiting for API routes (100 requests per minute)
 app.use("/github/*", rateLimit(100, 60000));
 app.use("/wakatime/*", rateLimit(100, 60000));
+
+// Stricter rate limiting for auth routes (20 requests per minute)
+app.use("/auth/*", rateLimit(20, 60000));
 app.route("/auth", auth);
 
 app.get("/", (c) => {
@@ -77,8 +78,6 @@ app.get("/health", async (c) => {
     return c.json({
       status: "healthy",
       timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      environment: env.get("NODE_ENV"),
       services: {
         database: "connected",
         api: "running",
@@ -90,7 +89,6 @@ app.get("/health", async (c) => {
       {
         status: "unhealthy",
         timestamp: new Date().toISOString(),
-        error: "Database connection failed",
       },
       503,
     );
@@ -106,25 +104,41 @@ app.get("/hello", async (c) => {
   return c.json(data);
 });
 
-app.get("/test", async (c) => {
-  const data: ApiResponse = {
-    message: "This is a test route!",
-    success: true,
-  };
+// In-memory store for OAuth state tokens (CSRF protection)
+const oauthStateStore = new Map<string, number>();
 
-  return c.json(data);
-});
+// Clean up expired state tokens every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, expiresAt] of oauthStateStore) {
+    if (now > expiresAt) {
+      oauthStateStore.delete(key);
+    }
+  }
+}, 300000);
 
 app.get("/auth/github", (c) => {
   const clientId = env.get("GITHUB_CLIENT_ID");
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=read:user`;
+  const state = crypto.randomBytes(16).toString("hex");
+  // State token expires in 10 minutes
+  oauthStateStore.set(state, Date.now() + 600000);
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=read:user&state=${state}`;
   return c.redirect(url);
 });
 
 app.get("/auth/github/callback", async (c) => {
   try {
     const code = c.req.query("code");
+    const state = c.req.query("state");
+
     if (!code) return c.json({ error: "No code provided" }, 400);
+
+    // Validate CSRF state token
+    if (!state || !oauthStateStore.has(state) || Date.now() > (oauthStateStore.get(state) ?? 0)) {
+      oauthStateStore.delete(state ?? "");
+      return c.json({ error: "Invalid or expired state parameter" }, 403);
+    }
+    oauthStateStore.delete(state);
 
     const res = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
@@ -136,8 +150,19 @@ app.get("/auth/github/callback", async (c) => {
       }),
     });
 
-    const data = await res.json();
-    return c.json(data);
+    const data = (await res.json()) as Record<string, unknown>;
+
+    if (data.error) {
+      return c.json({ success: false, message: "GitHub authentication failed" }, 401);
+    }
+
+    // Only return non-sensitive confirmation; do not expose raw tokens
+    return c.json({
+      success: true,
+      message: "GitHub authentication successful",
+      token_type: data.token_type,
+      scope: data.scope,
+    });
   } catch (error) {
     return c.json(
       {
@@ -163,10 +188,11 @@ app.get("/github/repos", async (c) => {
 
     return c.json(data);
   } catch (error) {
+    logger.error("Failed to fetch repos", error as Error);
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: "Failed to fetch repositories",
       },
       500,
     );
@@ -209,10 +235,11 @@ app.get("/github/profile", async (c) => {
 
     return c.json(profile);
   } catch (error) {
+    logger.error("Failed to fetch profile", error as Error);
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: "Failed to fetch profile",
       },
       500,
     );
@@ -227,10 +254,11 @@ app.get("/github/pinned-repos", async (c) => {
 
     return c.json(repositories);
   } catch (error) {
+    logger.error("Failed to fetch pinned repos", error as Error);
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: "Failed to fetch pinned repositories",
       },
       500,
     );
@@ -243,11 +271,12 @@ app.get("/wakatime/stats", async (c) => {
 
     const data = await getWakaTimeStats(apiKey);
     return c.json(data);
-  } catch (err: any) {
+  } catch (err) {
+    logger.error("Failed to fetch WakaTime stats", err as Error);
     return c.json(
       {
         success: false,
-        message: err.message || "Failed to fetch WakaTime stats",
+        message: "Failed to fetch WakaTime stats",
       },
       500,
     );
