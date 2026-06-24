@@ -29,7 +29,8 @@
     "dotenv": "^17.4.1",
     "hono": "^4.10.8",
     "jose": "^6.2.2",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "shared": "workspace:*"
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",
