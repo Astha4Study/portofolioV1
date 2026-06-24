@@ -44,7 +44,7 @@ class ClientEnvValidator {
     try {
       new URL(import.meta.env.VITE_SUPABASE_URL);
       new URL(import.meta.env.VITE_API_URL);
-    } catch (error) {
+    } catch {
       throw new Error("Invalid URL in environment variables");
     }
 

@@ -7,39 +7,16 @@ import { LoadinggithubInsights } from "@/components/LoadingGithubInsights";
 import { LoadingContributionGithub } from "@/components/LoadingContributionGithub";
 import { LoadingRepositoryPinned } from "@/components/LoadingRepositoryPinned";
 import { Skeleton } from "@/components/ui/skeleton";
-import { API_URL } from "@/lib/config";
-
-export type GitHubProfile = {
-  name: string | null;
-  username: string;
-  image: string;
-  bio?: string | null;
-};
-
-async function fetchProfile() {
-  const res = await fetch(`${API_URL}/github/profile`);
-  if (!res.ok) throw new Error("Failed to fetch profile");
-  return res.json();
-}
-
-async function fetchContributions() {
-  const res = await fetch(`${API_URL}/github/contributions`);
-  if (!res.ok) throw new Error("Failed to fetch contributions");
-  return res.json();
-}
-
-async function fetchRepos() {
-  const res = await fetch(`${API_URL}/github/pinned-repos`);
-  if (!res.ok) throw new Error("Failed to fetch repositories");
-  return res.json();
-}
+import { fetchProfile } from "@/lib/profile";
+import { fetchContributions } from "@/lib/contributions";
+import { fetchPinnedRepos } from "@/lib/repository";
 
 export default function GithubInsights() {
   const results = useQueries({
     queries: [
       { queryKey: ["github-profile"], queryFn: fetchProfile },
       { queryKey: ["contributions"], queryFn: fetchContributions },
-      { queryKey: ["pinned-repositories"], queryFn: fetchRepos },
+      { queryKey: ["pinned-repositories"], queryFn: fetchPinnedRepos },
     ],
   });
 
@@ -75,7 +52,7 @@ export default function GithubInsights() {
     );
   }
 
-  const profile: GitHubProfile = profileQuery.data;
+  const profile = profileQuery.data!;
 
   return (
     <section className="w-full space-y-8 px-5 sm:px-6 md:px-0">
@@ -100,8 +77,8 @@ export default function GithubInsights() {
         </div>
       </div>
 
-      <ContributionGithub data={contribQuery.data} />
-      <RepositoryPinned data={repoQuery.data} />
+      <ContributionGithub data={contribQuery.data!} />
+      <RepositoryPinned data={repoQuery.data!} />
     </section>
   );
 }

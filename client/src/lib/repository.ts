@@ -1,29 +1,8 @@
-import { API_URL } from "./config";
+import type { GitHubPinnedRepository } from "shared";
+import { apiFetch } from "./api-client";
 
-export type GitHubPinnedRepository = {
-  name: string;
-  description: string | null;
-  url: string;
-  homepageUrl: string | null;
-  isPrivate: boolean;
-  stargazerCount: number;
-  forkCount: number;
-  primaryLanguage: {
-    name: string;
-    color: string | null;
-  } | null;
-  owner: {
-    login: string;
-    avatarUrl: string;
-  };
-};
+export type { GitHubPinnedRepository } from "shared";
 
 export async function fetchPinnedRepos(): Promise<GitHubPinnedRepository[]> {
-  const res = await fetch(`${API_URL}/github/pinned-repos`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch pinned repositories");
-  }
-
-  return res.json();
+  return apiFetch<GitHubPinnedRepository[]>("/github/pinned-repos");
 }

@@ -1,3 +1,7 @@
+import type { GitHubPinnedRepository } from "shared";
+
+export type { GitHubPinnedRepository } from "shared";
+
 type GitHubPinnedRepositoryNode = {
   name: string;
   description: string | null;
@@ -54,24 +58,6 @@ query GetPinnedRepositories {
 	}
 }
 `;
-
-export type GitHubPinnedRepository = {
-  name: string;
-  description: string | null;
-  url: string;
-  homepageUrl: string | null;
-  isPrivate: boolean;
-  stargazerCount: number;
-  forkCount: number;
-  primaryLanguage: {
-    name: string;
-    color: string | null;
-  } | null;
-  owner: {
-    login: string;
-    avatarUrl: string;
-  };
-};
 
 export async function getPinnedRepositories(
   token: string,

@@ -1,6 +1,10 @@
 import { generateJWT } from "./jwt.js";
 
-export async function getInstallations() {
+type GitHubInstallation = {
+  id: number;
+};
+
+export async function getInstallations(): Promise<GitHubInstallation[]> {
   const jwt = generateJWT();
 
   const res = await fetch("https://api.github.com/app/installations", {
@@ -10,5 +14,9 @@ export async function getInstallations() {
     },
   });
 
-  return res.json();
+  if (!res.ok) {
+    throw new Error(`Failed to fetch installations (${res.status})`);
+  }
+
+  return res.json() as Promise<GitHubInstallation[]>;
 }

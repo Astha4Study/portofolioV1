@@ -1,9 +1,6 @@
-export type GitHubProfile = {
-  name: string | null;
-  username: string;
-  image: string;
-  bio?: string | null;
-};
+import type { GitHubProfile } from "shared";
+
+export type { GitHubProfile } from "shared";
 
 type GitHubUserResponse = {
   name: string | null;
