@@ -1,11 +1,6 @@
-import { API_URL } from "./config";
+import type { GitHubProfile } from "shared";
+import { apiFetch } from "./api-client";
 
-export async function fetchProfile() {
-  const res = await fetch(`${API_URL}/github/profile`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch profile");
-  }
-
-  return res.json();
+export async function fetchProfile(): Promise<GitHubProfile> {
+  return apiFetch<GitHubProfile>("/github/profile");
 }

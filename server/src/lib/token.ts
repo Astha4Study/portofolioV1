@@ -1,25 +1,12 @@
 import { generateJWT } from "./jwt.js";
-
-
-type GitHubInstallation = {
-  id: number;
-};
+import { getInstallations } from "./installations.js";
 
 type InstallationTokenResponse = {
   token: string;
 };
 
 export async function getInstallationToken() {
-  const jwt = generateJWT();
-
-  const installRes = await fetch("https://api.github.com/app/installations", {
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-      Accept: "application/vnd.github+json",
-    },
-  });
-
-  const installations = (await installRes.json()) as GitHubInstallation[];
+  const installations = await getInstallations();
 
   if (!installations.length) {
     throw new Error("App belum di-install");
@@ -30,6 +17,7 @@ export async function getInstallationToken() {
     throw new Error("Installation not found");
   }
 
+  const jwt = generateJWT();
   const installationId = installation.id;
 
   const tokenRes = await fetch(

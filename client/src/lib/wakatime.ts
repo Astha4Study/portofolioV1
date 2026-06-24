@@ -1,20 +1,7 @@
-import { API_URL } from "./config";
+import type { WakaTimeStats } from "shared";
+import { apiFetch } from "./api-client";
 
-export type WakaTimeStats = {
-  start: string;
-  end: string;
-  totalThisWeek: number;
-  avgDaily: number;
-  bestDay: {
-    date: string;
-    total_seconds: number;
-  };
-  allTimeTotal: number;
-  topLanguages: {
-    name: string;
-    total_seconds: number;
-  }[];
-};
+export type { WakaTimeStats } from "shared";
 
 function toSafeNumber(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
@@ -25,13 +12,7 @@ function toSafeString(value: unknown) {
 }
 
 export async function fetchWakaTimeStats(): Promise<WakaTimeStats> {
-  const res = await fetch(`${API_URL}/wakatime/stats`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch WakaTime stats");
-  }
-
-  const raw = (await res.json()) as Partial<WakaTimeStats>;
+  const raw = await apiFetch<Partial<WakaTimeStats>>("/wakatime/stats");
 
   const safeTopLanguages = Array.isArray(raw.topLanguages)
     ? raw.topLanguages
