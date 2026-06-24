@@ -18,6 +18,7 @@
     "build": "prisma generate && tsc",
     "dev": "concurrently \"bun --watch run src/index.ts\" \"tsc --watch\"",
     "start": "NODE_ENV=production bun run dist/index.js",
+    "test": "bun test",
     "db:migrate": "prisma migrate deploy",
     "db:generate": "prisma generate"
   },
