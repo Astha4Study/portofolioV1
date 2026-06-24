@@ -10,5 +10,9 @@ export async function getInstallations() {
     },
   });
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch GitHub App installations (${res.status})`);
+  }
+
   return res.json();
 }

@@ -19,10 +19,14 @@ export async function getInstallationToken() {
     },
   });
 
+  if (!installRes.ok) {
+    throw new Error(`Failed to fetch installations (${installRes.status})`);
+  }
+
   const installations = (await installRes.json()) as GitHubInstallation[];
 
   if (!installations.length) {
-    throw new Error("App belum di-install");
+    throw new Error("No GitHub App installations found");
   }
 
   const installation = installations[0];
@@ -43,7 +47,15 @@ export async function getInstallationToken() {
     }
   );
 
+  if (!tokenRes.ok) {
+    throw new Error(`Failed to create installation token (${tokenRes.status})`);
+  }
+
   const data = (await tokenRes.json()) as InstallationTokenResponse;
+
+  if (!data.token) {
+    throw new Error("GitHub returned an installation token response without a token");
+  }
 
   return data.token;
 }

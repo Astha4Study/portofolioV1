@@ -15,7 +15,25 @@ const query = `
 }
 `;
 
-export async function getContributions(token: string) {
+type ContributionsResponse = {
+  data?: {
+    viewer?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          weeks?: Array<{
+            contributionDays: Array<{
+              date: string;
+              contributionCount: number;
+            }>;
+          }>;
+        };
+      };
+    };
+  };
+  errors?: Array<{ message: string }>;
+};
+
+export async function getContributions(token: string): Promise<ContributionsResponse> {
   const res = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
@@ -25,5 +43,15 @@ export async function getContributions(token: string) {
     body: JSON.stringify({ query }),
   });
 
-  return res.json();
+  if (!res.ok) {
+    throw new Error(`GitHub GraphQL request failed (${res.status})`);
+  }
+
+  const data = (await res.json()) as ContributionsResponse;
+
+  if (data.errors?.length) {
+    throw new Error(data.errors[0]?.message ?? "GitHub GraphQL error");
+  }
+
+  return data;
 }
