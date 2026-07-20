@@ -9,7 +9,7 @@ import indonerisSertification from "@/assets/images/indoneris-sertification.png"
 import ikimfikSertification from "@/assets/images/ikimfik-sertification.png";
 
 import proxocorisPdf2026 from "@/assets/pdf/proxocoris-international-2026-kategori-web-development-3rd-winner-individu.pdf";
-import proxocorisPdf2025 from "@/assets/pdf/proxocoris-international-2025-Kategori-web-development-finalist.pdf";
+import proxocorisPdf2025 from "@/assets/pdf/proxocoris-international-2025-kategori-web-development-finalist.pdf";
 import hackathonPdf from "@/assets/pdf/hackathon-competition-IT-FAIR-XIV-V.2-UIN-sunan-gunung-djati-bandung.pdf";
 import uinicPdf from "@/assets/pdf/UINIC-7.0-2025-accelerating-the-innovation-for-sustainable-goals.pdf";
 import secompPdf from "@/assets/pdf/software-engineering-competition-SECOMP-2025.pdf";
