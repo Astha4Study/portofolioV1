@@ -1,4 +1,4 @@
-import { Globe } from "lucide-react";
+import { Globe, FileText } from "lucide-react";
 
 type AchivementsCardProps = {
   imageUrl: string;
@@ -6,6 +6,7 @@ type AchivementsCardProps = {
   year: string;
   description: string;
   websiteUrl?: string;
+  pdfUrl?: string;
 };
 
 export default function AchivementsCard({
@@ -14,6 +15,7 @@ export default function AchivementsCard({
   year,
   description,
   websiteUrl,
+  pdfUrl,
 }: AchivementsCardProps) {
   return (
     <div className="group h-full flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg dark:hover:shadow-neutral-800/50 transition-all duration-300">
@@ -46,18 +48,30 @@ export default function AchivementsCard({
         </p>
 
         {/* BUTTON */}
-        <div className="mt-auto pt-1">
-          {websiteUrl ? (
+        <div className="mt-auto pt-1 flex gap-2">
+          {websiteUrl && (
             <a
               href={websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-1.5 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 rounded-full py-1 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors duration-200"
+              className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 rounded-full py-1 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors duration-200"
             >
               <Globe className="w-3.5 h-3.5" />
               View Details
             </a>
-          ) : (
+          )}
+          {pdfUrl && (
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-full py-1 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              View Certificate
+            </a>
+          )}
+          {!websiteUrl && !pdfUrl && (
             <button
               disabled
               className="w-full flex items-center justify-center gap-1.5 text-xs font-medium bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-600 rounded-full py-1 cursor-not-allowed"

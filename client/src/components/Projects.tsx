@@ -1,5 +1,6 @@
 import { ProjectCard } from "./ProjectsCard";
 
+import kredlyWebsite from "@/assets/images/kredly-web.png";
 import cethaWebsite from "@/assets/images/cetha-web.jpeg";
 import daunesiaWebsite from "@/assets/images/daunesia-web.png";
 import kinaraWebsite from "@/assets/images/kinara-web.png";
@@ -10,6 +11,27 @@ import rotaneraWebsite from "@/assets/images/rotanera-web.png";
 
 export default function Projects() {
   const projects = [
+    {
+      imageUrl: kredlyWebsite,
+      title: "Kredly — AI-Powered Adaptive Assessment & Credential Platform",
+      year: "2026",
+      description:
+        "An AI-powered platform that measures real-world competencies through adaptive assessments, secures digital certificates with blockchain, and provides intelligent career recommendations based on verified skills.",
+      tags: [
+        "Rsbuild",
+        "React.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "Groq API",
+        "MongoDB",
+        "Vercel",
+        "Framer Motion",
+        "Zustand",
+      ],
+      websiteUrl: "https://kredlyy.vercel.app/",
+      sourceUrl: "https://github.com/GwFirman/kredly",
+    },
     {
       imageUrl: cethaWebsite,
       title: "Cetha — AI Career Optimization Platform",

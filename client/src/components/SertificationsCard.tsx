@@ -6,6 +6,7 @@ type SertificationsCardProps = {
   date: string;
   grade?: string;
   partner: string;
+  pdfUrl?: string;
 };
 
 export default function SertificationsCard({
@@ -14,6 +15,7 @@ export default function SertificationsCard({
   date,
   grade,
   partner,
+  pdfUrl,
 }: SertificationsCardProps) {
   return (
     <div className="group overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-linear-to-br from-white via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800/50 shadow-sm transition-all duration-300 hover:shadow-lg dark:hover:shadow-neutral-800/50">
@@ -60,9 +62,20 @@ export default function SertificationsCard({
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="default">{grade ?? "Verified"}</Badge>
 
-            <span className="inline-flex rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-600 dark:text-neutral-300">
-              View certificate
-            </span>
+            {pdfUrl ? (
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-xs font-medium text-neutral-900 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200"
+              >
+                View certificate
+              </a>
+            ) : (
+              <span className="inline-flex rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-xs font-medium text-neutral-900 dark:text-neutral-100">
+                View certificate
+              </span>
+            )}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 declare module "*.glb";
 declare module "*.png";
+declare module "*.pdf";
 
 // Lanyard scene defaults:
 // position={[0,0,24]}
