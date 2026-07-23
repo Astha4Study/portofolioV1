@@ -136,9 +136,29 @@ app.get("/auth/github/callback", async (c) => {
       }),
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`GitHub OAuth token exchange failed (${res.status})`);
+    }
+
+    const data = (await res.json()) as Record<string, unknown>;
+
+    if (data.error) {
+      logger.warn("GitHub OAuth error response", {
+        error: String(data.error),
+        description: String(data.error_description ?? ""),
+      });
+      return c.json(
+        {
+          success: false,
+          message: String(data.error_description ?? data.error),
+        },
+        400,
+      );
+    }
+
     return c.json(data);
   } catch (error) {
+    logger.error("GitHub OAuth callback failed", error instanceof Error ? error : new Error(String(error)));
     return c.json(
       {
         success: false,
@@ -156,17 +176,23 @@ app.get("/github/repos", async (c) => {
     const res = await fetch("https://api.github.com/installation/repositories", {
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github+json",
       },
     });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch installation repositories (${res.status})`);
+    }
 
     const data = await res.json();
 
     return c.json(data);
   } catch (error) {
+    logger.error("Failed to fetch repos", error instanceof Error ? error : new Error(String(error)));
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: error instanceof Error ? error.message : "Failed to fetch repositories",
       },
       500,
     );
@@ -179,11 +205,15 @@ app.get("/github/contributions", async (c) => {
 
     const res = await getContributions(token);
 
-    const weeks = (res as any).data.viewer.contributionsCollection.contributionCalendar.weeks;
+    const weeks = res.data?.viewer?.contributionsCollection?.contributionCalendar?.weeks;
 
-    const days = weeks.flatMap((week: any) => week.contributionDays);
+    if (!weeks) {
+      throw new Error("Unexpected GitHub API response: missing contribution calendar data");
+    }
 
-    const mapped = days.map((d: any) => ({
+    const days = weeks.flatMap((week) => week.contributionDays);
+
+    const mapped = days.map((d) => ({
       date: d.date,
       count: d.contributionCount,
       level: Math.min(4, Math.ceil(d.contributionCount / 5)),
@@ -191,10 +221,11 @@ app.get("/github/contributions", async (c) => {
 
     return c.json(mapped);
   } catch (err) {
+    logger.error("Failed to fetch contributions", err instanceof Error ? err : new Error(String(err)));
     return c.json(
       {
         success: false,
-        message: "Failed to fetch contributions",
+        message: err instanceof Error ? err.message : "Failed to fetch contributions",
       },
       500,
     );
@@ -209,10 +240,11 @@ app.get("/github/profile", async (c) => {
 
     return c.json(profile);
   } catch (error) {
+    logger.error("Failed to fetch profile", error instanceof Error ? error : new Error(String(error)));
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: error instanceof Error ? error.message : "Failed to fetch profile",
       },
       500,
     );
@@ -227,10 +259,11 @@ app.get("/github/pinned-repos", async (c) => {
 
     return c.json(repositories);
   } catch (error) {
+    logger.error("Failed to fetch pinned repos", error instanceof Error ? error : new Error(String(error)));
     return c.json(
       {
         success: false,
-        message: (error as Error).message,
+        message: error instanceof Error ? error.message : "Failed to fetch pinned repositories",
       },
       500,
     );
@@ -243,11 +276,12 @@ app.get("/wakatime/stats", async (c) => {
 
     const data = await getWakaTimeStats(apiKey);
     return c.json(data);
-  } catch (err: any) {
+  } catch (err) {
+    logger.error("Failed to fetch WakaTime stats", err instanceof Error ? err : new Error(String(err)));
     return c.json(
       {
         success: false,
-        message: err.message || "Failed to fetch WakaTime stats",
+        message: err instanceof Error ? err.message : "Failed to fetch WakaTime stats",
       },
       500,
     );

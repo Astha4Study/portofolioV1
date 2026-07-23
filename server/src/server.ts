@@ -35,8 +35,9 @@ process.on("uncaughtException", (error) => {
   shutdown("uncaughtException");
 });
 
-process.on("unhandledRejection", (reason: any, promise: Promise<any>) => {
-  logger.error("Unhandled rejection", new Error(String(reason)));
+process.on("unhandledRejection", (reason: unknown) => {
+  logger.error("Unhandled rejection", reason instanceof Error ? reason : new Error(String(reason)));
+  shutdown("unhandledRejection");
 });
 
 export default {

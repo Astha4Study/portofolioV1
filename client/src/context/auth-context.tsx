@@ -28,18 +28,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Init session
   useEffect(() => {
     const init = async () => {
-      const { data } = await supabase.auth.getSession();
+      try {
+        const { data, error } = await supabase.auth.getSession();
 
-      const sessionUser = data.session?.user;
+        if (error) {
+          console.error("Failed to restore auth session:", error.message);
+        }
 
-      if (sessionUser) {
-        setUser({
-          id: sessionUser.id,
-          email: sessionUser.email!,
-        });
+        const sessionUser = data.session?.user;
+
+        if (sessionUser) {
+          setUser({
+            id: sessionUser.id,
+            email: sessionUser.email!,
+          });
+        }
+      } catch (err) {
+        console.error("Unexpected error restoring auth session:", err);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     init();
@@ -90,7 +98,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
      LOGOUT
   ========================= */
   const logout = async () => {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Failed to sign out:", error.message);
+    }
     setUser(null);
   };
 
